@@ -45,13 +45,23 @@ nav ul {
 }
 
 nav ul li {
-    display: inline;
+    display: inline-block;
     margin: 0 20px;
 }
 
 nav ul li a {
-    color: #fff;
     text-decoration: none;
+    color: #fff;
+    padding: 10px 15px;
+    transition: background-color 0.3s, transform 0.1s;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+/* Hover effect: change color and indent */
+nav ul li a:hover {
+    background-color: #0066cc; /* Change to a darker color */
+    transform: translateY(2px); /* Indent effect */
 }
 
 section {
@@ -83,39 +93,6 @@ section h2 {
 
 #projects .project {
     margin-bottom: 20px;
-}
-
-#contact form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-#contact form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-#contact form input,
-#contact form textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#contact form button {
-    padding: 10px;
-    border: none;
-    background: #77aaff;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#contact form button:hover {
-    background: #0066cc;
 }
 
 footer {
