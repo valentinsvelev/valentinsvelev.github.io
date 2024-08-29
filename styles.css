@@ -1,4 +1,10 @@
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -46,13 +52,13 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: #fff;
-    padding: 10px 15px;
+    padding: 5px 10px;
     transition: background-color 0.3s, transform 0.1s;
     display: inline-block;
     border-radius: 5px;
