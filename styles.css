@@ -18,16 +18,6 @@ body {
     overflow: hidden;
 }
 
-/* Style the h1 with a black box */
-.name-box {
-    display: inline-block;          /* Shrinks the box to fit the content */
-    padding: 10px;                  /* Adds space inside the box */
-    background-color: black;      /* Black background color */
-    color: white;                 /* White text color for contrast */
-    border-radius: 5px;             /* Optional: Adds rounded corners */
-    margin: 0;                      /* Ensures no margin around the box */
-}
-
 header {
     background: #333;
     color: #fff;
@@ -76,8 +66,13 @@ nav ul li a {
 
 /* Hover effect: change color and indent */
 nav ul li a:hover {
-    background-color: #0066cc;       /* Change to a darker color */
-    transform: translateY(2px);        /* Indent effect */
+    color: inherit;                           /* Prevents visited links from turning into another color */
+    background-color: lightslategrey;       /* Change to a darker color */
+    transform: translateY(1px);               /* Indent effect */
+}
+
+nav ul li a:visited {
+    color: inherit;                           /* Prevents visited links from turning blue */
 }
 
 section {
@@ -126,7 +121,7 @@ a:visited {
 }
 
 a:hover {
-    color: darkblue; /* Optional: changes color on hover for a visual effect */
+    color: red; /* Optional: changes color on hover for a visual effect */
 }
 
 a:active {
