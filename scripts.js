@@ -28,4 +28,3 @@ window.addEventListener('load', adjustFontSize);
 
 // Run the function on window resize
 window.addEventListener('resize', adjustFontSize);
-

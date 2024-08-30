@@ -12,6 +12,7 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -28,14 +29,15 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
 }
 
-section {
-    padding: 20px 0;
-}
-
-section h2 {
+.container h2 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 28px;
+}
+
+.wrapper {
+    padding: 20px 0;
+    min-height: 100%;
 }
 
 hr {
@@ -46,12 +48,11 @@ hr {
     width: 100%;                            /* Optional: Sets the width of the line, centered */
 }
 
-footer {
+.footer {
     background: #3d3d3d;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    margin-top: 20px;
 }
 
 /* Header */
