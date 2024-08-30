@@ -1,4 +1,5 @@
 
+/* General */
 html, body {
     height: 100%;
     margin: 0;
@@ -17,67 +18,14 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif;
 }
 
+.indented {
+    text-indent: 40px;
+}
+
 .container {
     width: 80%;
     margin: auto;
     overflow: hidden;
-}
-
-header {
-    background: #3d3d3d;
-    color: #fff;
-    padding-top: 30px;
-    min-height: 70px;
-    border-bottom: #77aaff 3px solid;
-}
-
-header h1 {
-    text-align: center;
-    margin: 0;
-    font-size: 45px;
-}
-
-header p {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-nav {
-    background: #FFFDD0;
-    color: #3d3d3d;
-    padding: 0;
-}
-
-nav ul {
-    padding: 0;
-    list-style: none;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    padding: 5px 5px;
-    transition: background-color 0.3s, transform 0.1s;
-    display: inline-block;
-    border-radius: 5px;
-}
-
-/* Hover effect: change color and indent */
-nav ul li a:hover {
-    color: inherit;                           /* Prevents visited links from turning into another color */
-    background-color: lightslategrey;       /* Change to a darker color */
-    transform: translateY(1px);               /* Indent effect */
-}
-
-nav ul li a:visited {
-    color: inherit;                           /* Prevents visited links from turning blue */
 }
 
 section {
@@ -90,6 +38,91 @@ section h2 {
     font-size: 28px;
 }
 
+hr {
+    border: none;                           /* Removes the default border */
+    height: 2px;                            /* Sets the thickness of the line */
+    background-color: #3d3d3d;            /* Sets the color of the line */
+    margin: 15px 0;                         /* Adds some space above and below the line */
+    width: 100%;                            /* Optional: Sets the width of the line, centered */
+}
+
+footer {
+    background: #3d3d3d;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* Header */
+/** Info **/
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space between header info and nav */
+    align-items: center; /* Align items vertically in the center */
+    padding: 25px;
+    background-color: #333; /* Background color of the header */
+    color: white; /* Text color */
+}
+
+.header-info {
+    margin-left: 125px;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.header-info p {
+    margin: 0;
+    font-size: 19px;
+}
+
+/** Navigation Bar **/
+.header-nav {
+    margin-right: 125px;
+}
+
+.header-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+}
+
+.header-nav ul li {
+    margin-left: 25px; /* Space between nav items */
+}
+
+.header-nav ul li a {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100px; /* Equal width for each nav item */
+    height: 50px; /* Height of the nav item boxes */
+    background-color: #444; /* Background color of the boxes */
+    color: white; /* Nav link color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, border-radius 0.3s; /* Smooth transition */
+}
+
+.header-nav ul li a:hover {
+    color: inherit;                           /* Prevents visited links from turning into another color */
+    background-color: lightslategrey;       /* Change to a darker color */
+    transform: translateY(1px);               /* Indent effect */
+    border-radius: 15px;
+}
+
+.header-nav ul li a:visited {
+    color: inherit;                           /* Prevents visited links from turning blue */
+}
+
+/* Styling for specific pages */
 #about p {
     text-align: center;
     max-width: 700px;
@@ -112,14 +145,6 @@ section h2 {
     margin-bottom: 20px;
 }
 
-footer {
-    background: #3d3d3d;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-}
-
 /* Links */
 a:visited {
     color: blue; /* Ensures visited links remain blue */
@@ -131,12 +156,4 @@ a:hover {
 
 a:active {
     color: blue; /* Ensures links remain blue when clicked */
-}
-
-hr {
-    border: none;                           /* Removes the default border */
-    height: 2px;                            /* Sets the thickness of the line */
-    background-color: #3d3d3d;            /* Sets the color of the line */
-    margin: 20px 0;                         /* Adds some space above and below the line */
-    width: 100%;                            /* Optional: Sets the width of the line, centered */
 }

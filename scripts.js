@@ -15,11 +15,11 @@ function adjustFontSize() {
     const windowWidth = window.innerWidth;
 
     if (windowWidth <= 600) {
-        h1.style.fontSize = '24px'; // Mobile size
+        h1.style.fontSize = '18px'; // Mobile size
     } else if (windowWidth > 600 && windowWidth <= 768) {
-        h1.style.fontSize = '28px'; // Tablet size
+        h1.style.fontSize = '20px'; // Tablet size
     } else {
-        h1.style.fontSize = '36px'; // Desktop size
+        h1.style.fontSize = '30px'; // Desktop size
     }
 }
 
