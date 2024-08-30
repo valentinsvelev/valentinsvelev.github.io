@@ -18,6 +18,16 @@ body {
     overflow: hidden;
 }
 
+/* Style the h1 with a black box */
+.name-box {
+    display: inline-block;          /* Shrinks the box to fit the content */
+    padding: 10px;                  /* Adds space inside the box */
+    background-color: black;      /* Black background color */
+    color: white;                 /* White text color for contrast */
+    border-radius: 5px;             /* Optional: Adds rounded corners */
+    margin: 0;                      /* Ensures no margin around the box */
+}
+
 header {
     background: #333;
     color: #fff;
@@ -41,7 +51,7 @@ header p {
 nav {
     background: #77aaff;
     color: #fff;
-    padding: 10px 0;
+    padding: 0;
 }
 
 nav ul {
@@ -58,7 +68,7 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 5px;
     transition: background-color 0.3s, transform 0.1s;
     display: inline-block;
     border-radius: 5px;
@@ -66,8 +76,8 @@ nav ul li a {
 
 /* Hover effect: change color and indent */
 nav ul li a:hover {
-    background-color: #0066cc; /* Change to a darker color */
-    transform: translateY(2px); /* Indent effect */
+    background-color: #0066cc;       /* Change to a darker color */
+    transform: translateY(2px);        /* Indent effect */
 }
 
 section {
@@ -108,4 +118,17 @@ footer {
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
+}
+
+/* Links */
+a:visited {
+    color: blue; /* Ensures visited links remain blue */
+}
+
+a:hover {
+    color: darkblue; /* Optional: changes color on hover for a visual effect */
+}
+
+a:active {
+    color: blue; /* Ensures links remain blue when clicked */
 }
