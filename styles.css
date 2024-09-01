@@ -19,20 +19,45 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif;
 }
 
+h2 {
+    font-size: 26px;
+}
+
 .indented {
-    text-indent: 40px;
+    padding-left: 40px;
+    text-align: justify;
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
 }
 
 .container {
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
     overflow: hidden;
+    text-align: justify;
 }
 
 .container h2 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
     font-size: 28px;
+}
+
+.title-container {
+    width: 100%;
+    background-color: #811aff;
+    color: white;
+    padding: 20px 0;
+}
+
+.title-text {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
 }
 
 .wrapper {
@@ -43,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
 hr {
     border: none;                           /* Removes the default border */
     height: 2px;                            /* Sets the thickness of the line */
-    background-color: black;            /* Sets the color of the line */
+    background-color: black;              /* Sets the color of the line */
     margin: 15px 0;                         /* Adds some space above and below the line */
     width: 100%;                            /* Optional: Sets the width of the line, centered */
 }
@@ -52,27 +77,39 @@ hr {
     background: #450f88;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.footer p {
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 /* Header */
 /** Info **/
+header {
+    width: 100%;
+    background-color: #450f88;
+    padding: 25px 0;
+}
+
 .header-container {
+    width: 80%;
     display: flex;
-    justify-content: space-between; /* Space between header info and nav */
-    align-items: center; /* Align items vertically in the center */
-    padding: 25px;
-    background-color: #450f88; /* Background color of the header */
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header-info {
-    margin-left: 125px;
     color: white; /* Text color */
+    flex: 1;
 }
 
 .header-info h1 {
     margin: 0;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .header-info p {
@@ -82,7 +119,8 @@ hr {
 
 /** Navigation Bar **/
 .header-nav {
-    margin-right: 125px;
+    flex: 1;
+    align-items: right;
 }
 
 .header-nav ul {
@@ -103,7 +141,7 @@ hr {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 110px; /* Equal width for each nav item */
+    width: 115px; /* Equal width for each nav item */
     height: 50px; /* Height of the nav item boxes */
     background-color: white; /* Background color of the boxes */
     color: black; /* Nav link color */
@@ -120,30 +158,13 @@ hr {
 }
 
 .header-nav ul li a:visited {
-    color: inherit;                           /* Prevents visited links from turning blue */
+    color: inherit;
 }
 
-/* Styling for specific pages */
-#about p {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-#research ul {
-    list-style: none;
-    list-style-type:none;
-    padding: 0;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-#research ul li {
-    margin-bottom: 10px;
-}
-
-#projects .project {
-    margin-bottom: 20px;
+.header-nav ul li a.active {
+    background-color: #811aff;
+    color: white;
+    font-weight: bold;
 }
 
 /* Links */
@@ -157,9 +178,74 @@ a:visited {
 
 a:hover {
     color: white; /* Optional: changes color on hover for a visual effect */
-    background-color: #450f88;
+    background-color: #811aff;
 }
 
 a:active {
     color: black; /* Ensures links remain black when clicked */
+}
+
+/* Clickable icons */
+.icon-link {
+    text-decoration: none; /* Remove underline */
+    display: inline-flex; /* Use inline-flex for better control */
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+}
+
+.icon-link:hover {
+    outline: none; /* Remove any outline or border on the link itself */
+    background-color: transparent; /* Ensure no background color appears on hover */
+}
+
+.icon-link i {
+    color: black; /* Initial color of the icon */
+    transition: color 0.3s ease; /* Smooth transition for the color change */
+}
+
+.icon-link i:hover {
+    color: #811aff; /* Color of the icon on hover */
+}
+
+
+/* Buttons */
+.button {
+    border: none;
+    color: white;
+    padding: 16px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: auto;
+    margin-bottom: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #450f88;
+}
+
+.button1:hover {
+    background-color: #811aff;
+    color: white;
+    font-weight: bold;
+    transform: translateY(1px);
+}
+
+.button2 {
+    background-color: white;
+    color: black; 
+    border: 2px solid #450f88;
+}
+
+.button2:hover {
+    background-color: #811aff;
+    color: white;
+    font-weight: bold;
+    transform: translateY(1px);
 }
