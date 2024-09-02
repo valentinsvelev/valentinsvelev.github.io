@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV &ndash; Valentin Velev</title>
+    <title>Blog &ndash; Valentin Velev</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
@@ -33,20 +33,31 @@
     </header>
 
     <div class="title-container">
-        <h2 class="title-text">Curriculum Vitae</h2>
+        <h2 class="title-text">Blog</h2>
     </div>
 
     <div class="wrapper">
         <div class="container">
-            <div style="display:flex;">
-                <div class="column">
-                    <button class="button button1 downloadBtn" data-href="cv/velev_german_cv.pdf" data-filename="velev_german_cv.pdf">Download English CV</button>
-                    <iframe src="cv/velev_german_cv.pdf" width="100%" height="600px" style="border: none;"></iframe>
-                </div>
-                <div class="column">
-                    <button class="button button2 downloadBtn" data-href="cv/velev_english_cv.pdf" data-filename="velev_english_cv.pdf">Download German CV</button>
-                    <iframe src="cv/velev_english_cv.pdf" width="100%" height="600px" style="border: none;"></iframe>
-                </div>
+            <div class='blog-post'>
+                <a href="blog-posts/blog-bert-gpt2-numpy.html">
+                    <h3>Building BERT and GPT-2 from scratch using NumPy</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02</p>
+                    <p>BERT and GPT-2 are two of the most popular open-source language models, but how do they work?</p>
+                </a>
+            </div>
+            <div class="blog-post">
+                <a href="blog-posts/blog-nlg.html">
+                    <h3>A Brief Introduction to Natural Language Generation (NLG)</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02</p>
+                    <p>Natural Language Generation (NLG), i.e., the generation of text using language models and their causal language modeling capabilities, is not as black box as people make it out to be. In fact, a user can control many parameters.</p>
+                </a>
+            </div>
+            <div class="blog-post">
+                <a href="blog-posts/blog-transformer.html">
+                    <h3>A Brief Introduction to (some of) the Math behind the Transformer</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02</p>
+                    <p>The Transformer archtitecture, introduced in 2017 by Google, is the basis for every state-of-the-art generative AI model today. Understanding (some of) the math behind it is essential for getting a better understanding of the Transformer itself.</p>
+                </a>
             </div>
         </div>
     </div>

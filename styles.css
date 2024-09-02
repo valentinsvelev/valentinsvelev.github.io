@@ -34,7 +34,7 @@ h2 {
 }
 
 .container {
-    width: 80%;
+    width: 87.5%;
     margin: 0 auto;
     overflow: hidden;
     text-align: justify;
@@ -54,7 +54,7 @@ h2 {
 }
 
 .title-text {
-    width: 80%;
+    width: 87.5%;
     text-align: center;
     margin: 0 auto;
     font-weight: bold;
@@ -95,7 +95,7 @@ header {
 }
 
 .header-container {
-    width: 80%;
+    width: 87.5%;
     display: flex;
     margin: 0 auto;
     justify-content: space-between;
@@ -248,4 +248,46 @@ a:active {
     color: white;
     font-weight: bold;
     transform: translateY(1px);
+}
+
+/* Blog posts */
+/** Styling for each blog post box **/
+.blog-post {
+    background-color: white;
+    border: 2px solid #b9b9b9;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    transition-duration: 0.3s;
+    box-sizing: border-box;
+    padding: 20px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.blog-post a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Styling for titles */
+.blog-post h3 {
+    margin: 0 auto;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Styling for descriptions */
+.blog-post p {
+    text-align: justify;
+}
+
+/* Hover effect for blog post boxes */
+.blog-post a:hover {
+    transform: translateY(1px);
+    color: white;
+    background-color: #811aff;
+    border-radius: 10px;
+    padding: 10px;
 }

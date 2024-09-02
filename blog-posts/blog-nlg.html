@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLG (Blog) &ndash; Valentin Velev</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-info">
+                <h1>Valentin Velev</h1>
+                <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:valentin.velev@uni-konstanz.de" style="color:white">valentin.velev@uni-konstanz.de</a>
+                </p>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="../index.html">About Me</a></li>
+                    <li><a href="../research.html">Research</a></li>
+                    <li><a href="../projects.html">Projects</a></li>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../cv.html">CV</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="title-container">
+        <h2 class="title-text">A Brief Introduction to Natural Language Generation</h2>
+    </div>
+
+    <div class="wrapper">
+        <div class="container">
+            <p>In this blog post, I will dive into some of the math foundations of natural language generation (NLG), such as linear algebra and probability theory. If you want more information, you can check out Bishop (2006), Deisenroth et al. (2020), Prince (2024), and Bishop & Bishop (2024). For social scientists, I also recommend Moore & Siegel (2013) and King (1998).</p>
+            <p>In language modeling, the likelihood of generating a word \(w_i\) is given by the conditional probability \(P(w_i|w_1, ..., w_{i-1})\). To generate a coherent and relevant sequence of \(t\) words using causal language modeling (CLM), three components are essential: a language model \(M\), a prompt \(X\) and a decoding algorithm.</p>
+            <p>Prompts are task-specific instructions used for guiding a model's output (Amatriain, 2024; Sahoo et al., 2024). In other words, prompts are the user's input. Thus, the model \(M\) generates the subsequent text by maximizing the probability of each word \(w_i\), conditioned not only on the preceding generated words \(w_1, ..., w_{i-1}\), but also on the prompt \(X = x_1, ..., x_m\). Mathematically, this can be expressed as:</p>
+            <p>$$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$</p>
+            <p>where \(t\) is the length of the generated text sequence (Bengio et al., 2003; Vaswani et al., 2017).</p>
+            <p>A way to find effective prompts is through prompt engineering, i.e., the systematic crafting of prompts (Amatriain, 2024; Sahoo et al., 2024). In general, many approaches exist. In this blog post, I only will cover some of the most widely used prompt engineering techniques.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p>Last update: 2024-09-02. Hosted on GitHub Pages.</p>
+            <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+</body>
+</html>
