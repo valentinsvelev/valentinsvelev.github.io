@@ -41,16 +41,21 @@
         <div class="container">
             <p>In this blog post, I will dive into some of the math foundations of natural language generation (NLG), such as linear algebra and probability theory. If you want more information, you can check out Bishop (2006), Deisenroth et al. (2020), Prince (2024), and Bishop & Bishop (2024). For social scientists, I also recommend Moore & Siegel (2013) and King (1998).</p>
             <p>In language modeling, the likelihood of generating a word \(w_i\) is given by the conditional probability \(P(w_i|w_1, ..., w_{i-1})\). To generate a coherent and relevant sequence of \(t\) words using causal language modeling (CLM), three components are essential: a language model \(M\), a prompt \(X\) and a decoding algorithm.</p>
+            <h3>Prompting</h3>
             <p>Prompts are task-specific instructions used for guiding a model's output (Amatriain, 2024; Sahoo et al., 2024). In other words, prompts are the user's input. Thus, the model \(M\) generates the subsequent text by maximizing the probability of each word \(w_i\), conditioned not only on the preceding generated words \(w_1, ..., w_{i-1}\), but also on the prompt \(X = x_1, ..., x_m\). Mathematically, this can be expressed as:</p>
             <p>$$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$</p>
             <p>where \(t\) is the length of the generated text sequence (Bengio et al., 2003; Vaswani et al., 2017).</p>
             <p>A way to find effective prompts is through prompt engineering, i.e., the systematic crafting of prompts (Amatriain, 2024; Sahoo et al., 2024). In general, many approaches exist. In this blog post, I only will cover some of the most widely used prompt engineering techniques.</p>
-            <h3>Prompting Techniques</h3>
-            <p>Zero-Shot Prompting</p>
-            <p>Few-Shot Prompting</p>
-            <p>Chain-of-Thought Prompting</p>
-            <p>Tree of Throughts Prompting</p>
-            <h3>Decoding Algorithm</h3>
+            <p>Zero-Shot Prompting, introduced by Radford et al. (2019), involves ...</p>
+            <p>An example of a zero-shot prompt is: <em>"..."</em></p>
+            <p>Few-Shot Prompting, introduced by Brown et al. (2020), comprises ...</p>
+            <p>An example of a zero-shot prompt is: <em>"..."</em></p>
+            <p>Chain-of-Thought Prompting, introduced by Wei et al. (2022), ...</p>
+            <p>An example of a zero-shot prompt is: <em>"..."</em></p>
+            <p>Tree of Throughts Prompting, introduced by Yao et al. (2023) and Long (2023), ...</p>
+            <p>An example of a zero-shot prompt is: <em>"..."</em></p>
+            <h3>Decoding Algorithms</h3>
+            <p>Decoding algorithms are then used to translate the probabilities of a sentence \(s\) with \(t\) words \(w_1, ..., w_{i-1}\) into coherent and intelligible text (natural language). The choice of a decoding algorithm has been shown to significantly affect the quality and diversity of the generated text (Ippolito et al., 2019; Wiher et al., 2022; Zhang et al., 2021). In this blog post, I will cover several common decoding methods.</p>
             <p>Greedy Search</p>
             <p>Beam Search</p>
             <p>Top-k Sampling</p>
