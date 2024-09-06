@@ -28,6 +28,11 @@ h2 {
     text-align: justify;
 }
 
+.indented2 {
+    padding-left: 80px;
+    text-align: justify;
+}
+
 .column {
     flex: 1;
     padding: 10px;
@@ -74,7 +79,7 @@ hr {
 }
 
 .footer {
-    background: #450f88;
+    background: #2e085d;
     color: white;
     text-align: center;
     padding: 20px;
@@ -90,7 +95,7 @@ hr {
 /** Info **/
 header {
     width: 100%;
-    background-color: #450f88;
+    background-color: #2e085d;
     padding: 25px 0;
 }
 
@@ -227,7 +232,7 @@ a:active {
 .button1 {
     background-color: white; 
     color: black; 
-    border: 2px solid #450f88;
+    border: 2px solid #2e085d;
 }
 
 .button1:hover {
@@ -290,4 +295,19 @@ a:active {
     background-color: #811aff;
     border-radius: 10px;
     padding: 10px;
+}
+
+/* Algorithms */
+/** Box for algorithms **/
+.pseudocode-box {
+    border: 2px solid #000; /* Add a black border */
+    background-color: #f4f4f4; /* Light gray background */
+    padding: 15px 50px;
+    border-radius: 10px;
+}
+
+/* Algorithm titles */
+.algorithm-title{
+    font-size: 16px;
+    font-weight: bold;
 }

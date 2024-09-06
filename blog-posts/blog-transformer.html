@@ -39,24 +39,188 @@
 
     <div class="wrapper">
         <div class="container">
-            <p>The Transformer architecture was first introduced in 2017 by a team of researchers at Google (cf. Vaswani et al., 2017). Originally, their model was for machine translation, i.e., the automated translation of text across different languages. However, researchers soon realized that Transformer-based models significantly outperform traditional machine learning models in almost all areas (exceptions include: random forest regression for a classification task using tabular data and logit regression for the prediction of tsunamis). Today almost all state-of-the-art generative models, such as OpenAI's GPT-4o, Meta AI's LLaMA 3.1, Google's Gemini 1.5, and Anthropic's Claude 3.5, are based on the Transformer architecture. To get a better understanding of what goes on behind these and other Transformer-based models, I will explain (some) of the math behind the Transformer. This blog post will cover (scaled) dot-product self-attention, (masked) multi-head self-attention, layer normalization, feed forward neural network, linear layer, softmax function, and positional encoding.</p>
+            <p>The Transformer architecture was first introduced in 2017 by a team of researchers at Google (cf. Vaswani et al., 2017). Originally, their model was for machine translation, i.e., the automated translation of text across different languages. However, researchers soon realized that Transformer-based models significantly outperform traditional machine learning models in almost all areas (exceptions include: random forest regression for a classification task using tabular data and logit regression for the prediction of tsunamis). Today almost all state-of-the-art generative models, such as OpenAI's GPT-4o, Meta AI's LLaMA 3.1, Google's Gemini 1.5, and Anthropic's Claude 3.5, are based on the Transformer architecture. To get a better understanding of what goes on behind these and other Transformer-based models, I will explain (some) of the math behind the Transformer. This blog post will cover (scaled) dot-product self-attention, (masked) multi-head self-attention, layer normalization, feed forward neural network, linear layer, softmax function, and positional encoding. If you want more information, you can check out Bishop (2006), Deisenroth et al. (2020), Fleuret (2023), Prince (2024), and Bishop & Bishop (2024).</p>
             <br>
             <div style="display:flex; justify-content:center;"><img src="../images/transformer.PNG" style="width:292px; height:373px;"></div>
             <p style="display:flex; justify-content:center;">Figure 1: The Transformer architecture (Vaswani et al., 2017)</p>
             <br>
             <h3>Dot-product self-attention</h3>
-            <p>...</p>
+            <p>The dot-product self-attention mechanism is a curcial component that enables a Transformer model the importance of different elements in a sequence relative to each other. The mechanism relies on three key components: queries \(Q\), keys \(K\), and values \(V\), which are derived from the input sequence. Queries represent what each token is "looking for" in other tokens, keys represent the features of the tokens that will be matched with the queries, and values hold the information that will be aggregated and passed on to the next layer based on the attention weights.</p>
+            <p>To obtain these components, each input token undergoes a linear transformation, a process in which the input vector is multiplied by a learned weight matrix.</p>
+            <p>A learned weight matrix is a matrix of parameters that is initialized randomly and then updated during the training process. These parameters are "learned" by the model through backpropagation, where the model adjusts the weights to minimize the error between its predictions and the true outputs.</p>
+            <p>Formally, for each token, the query \(Q\), key \(K\), and value \(V\) are computed as:</p>
+
+            $$Q=XW^{(q)}$$
+            $$K=XW^{(k)}$$
+            $$V=XW^{(v)}$$
+
+            <p>where</p> 
+            <ul>
+                <li>\(X \in \mathbb{R}^{N \times D}\) is the input matrix of positional token embeddings,</li>
+                <li>\(W^{(q)} \in \mathbb{R}^{D \times d_k}\), \(W^{(k)} \in \mathbb{R}^{D \times d_k}\), and \(W^{(v)} \in \mathbb{R}^{D \times d_v}\) are the learned weight matrices that map the input into query, key, and value spaces, respectively, and</li>
+                <li>\(Q \in \mathbb{R}^{N \times d_k}\), \(K \in \mathbb{R}^{N \times d_k}\), and \(V \in \mathbb{R}^{N \times d_v}\) are the resulting matrices of queries, keys, and values, where \(d_k\) is the dimensionality of the query and key vectors, and \(d_v\) is the dimensionality of the value vectors.</li>
+            </ul>
+            <p>These transformations allow the model to project the input into different vector spaces to perform attention calculations. Note that in some texbooks, for example in Prince (2024), a bias term \(\beta\) is included, making the formulas:</p>
+
+            $$Q = \beta_q1^T+\Omega_qX$$
+            $$K = \beta_k1^T+\Omega_kX$$
+            $$V = \beta_v1^T+\Omega_vX$$
+
+            <p>where \(\beta_q, \beta_k, \beta_v\) are the biases, \(1^T\) is a \(N \times 1\) vector of ones that ensures the first term can be added to the second term, and \(\Omega_q, \Omega_k, \Omega_v\) are the learned weight matrices.</p>
+            <p>Once we have obtained the queries, keys, and values, the (scaled) dot-product self-attention can be computed as follows:</p>
+            <p>The first step in the self-attention process is to compute the <b>dot-product</b> between the query and key matrices. Each query vector \(Q_i\) is compared to every key vector \(K_j\) to measure the similarity between tokens. This results in an attention score matrix \(QK^T \in \mathbb{R}^{N \times N}\), where each entry \((i,j)\) in the matrix represents how much attention the \(i\)-th token should pay to the \(j\)-th token. This similarity is crucial because it tells the model which tokens in the sequence are most relevant to each other.</p>
+            <p>The second step is <b>scaling</b> the attention scores by dividing them by \(\sqrt {d_k}\), where \(d_k\) is the dimensionality of the key vectors. This is formally expressed as:</p>
+
+            $$\frac{QK^T}{\sqrt{d_k}}$$
+
+            <p>This scaling is necessary because as the dimensionality \(d_k\) grows, the dot-product values can become large, which can lead to gradients that are too sharp and make training unstable. By scaling the scores, the values remain within a range that makes the softmax function more effective in differentiating the attention between tokens, leading to smoother learning.</p>
+            <p>Next, the <b>softmax</b> function is applied to the scaled attention scores to convert them into attention weights \(\text{a}_{ij}\). Mathematically, this can be expressed as:</p>
+
+            $$\text{a}_{ij} = \frac{\exp\left(\frac{(QK^T)_{ij}}{\sqrt{d_k}}\right)}{\sum_{j=1}^{n} \exp\left(\frac{(QK^T)_{ij}}{\sqrt{d_k}}\right)}$$
+
+            <p>It ensures that the attention weights are normalized &mdash; each row of the matrix sums to 1 &mdash; so that they can be interpreted as probabilities. This tells the model how much focus the \(i\)-th token should place on each of the other tokens \(j\) in the sequence. The softmax function emphasizes the most relevant tokens (those with higher scores) while reducing the influence of less relevant tokens.</p>
+            <p>Finally, the attention weights are used to compute a <b>weighted sum</b> of the value vectors. The attention weights are applied to the values \(V\), and the sum of these weighted values produces the output for each token:</p> 
+
+            $$\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+            <p>This step is what allows the model to aggregate information from the entire sequence, with each token focusing on the most relevant tokens (based on the computed attention weights) to form its representation. This weighted aggregation is key to the model's ability to capture long-range dependencies and contextual information across the input sequence.</p>
+            <p>Taking everything together, we obtain the following formula for computing scaled dot-product self-attention:</p>
+
+            $$\text{Y} = \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+            <p>Algorithmically, scaled dot-product self-attention can be expressed as (cf. Bishop & Bishop, 2024, p. 367):</p>
+            <div class="pseudocode-box">
+                <p class="algorithm-title">Algorithm 1: Scaled dot-product self-attention</p>
+                <p>\(\text{Attention}(Q, K, V)\):</p>
+                    <p class="indented"><i>Input:</i></p>
+                        <ul>
+                            <li>Set of tokens as a matrix \(X \in \mathbb{R}^{N \times D} : \{x_1, ..., x_N\}\)</li>
+                            <li>Weight matrices \(\{W^{(q)}, W^{(k)}\} \in \mathbb{R}^{D \times d_k}\) and \(W^{(v)} \in \mathbb{R}^{D \times d_v}\)</li>
+                        </ul>
+                    <p class="indented"><i>Output:</i> \(\text{Attention}(Q, K, V)\in \mathbb{R}^{N \times d_v} : \{y_1, ..., y_N\} \)</p>
+
+                    <p class="indented">\(Q = XW^{(q)}\) // compute queries \(Q \in \mathbb{R}^{N \times d_k}\)</p>
+                    <p class="indented">\(K = XW^{(k)}\) // compute keys \(K \in \mathbb{R}^{N \times d_k}\)</p>
+                    <p class="indented">\(V = XW^{(v)}\) // compute values \(V \in \mathbb{R}^{N \times d_v}\)</p>
+
+                    <p class="indented"><b>return \(\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\)</b></p>
+            </div>
             <h3>Multi-head self-attention</h3>
-            <p>...</p>
+            <p>In natural language, some patterns might be relevant to tense whereas others might be associated with vocabulary. Using a single attention head can lead to averaging over these effects and therefore imprecise results. To avoid this, we can use multiple self-attention mechanisms in parallel, each with its own set of learnable parameters that control the computatin of the query, key, and value matrices. This is analogous to using multiple different filters in each layer of a convolutional network.</p>
+            <p>For a multi-head self-attention mechanism with \(H\) heads indexed by \(h = 1, ..., H\), the query, key, and value matrices can be calculated using:</p>
+
+            $$Q_h = XW^{(q)}_h$$
+            $$K_h = XW^{(k)}_h$$
+            $$V_h = XW^{(v)}_h$$
+
+            <p>or with the bias terms:</p>
+
+            $$Q_h = \beta_{qh}1^T+\Omega_{qh}X$$
+            $$K_h = \beta_{kh}1^T+\Omega_{kh}X$$
+            $$V_h = \beta_{vh}1^T+\Omega_{vh}X$$
+
+            <p>The \(h\)-th head can then be written as:</p>
+
+            $$H_h = \text{Attention}(Q_h, K_h, V_h)$$
+
+            <p>Finally, the matrices \(H_1, ..., H_H\) are concatenated into a single matrix and the result is linearly transformed using a matrix \(W^{(o)}\) to obtain the final result:</p>
+
+            $$Y = \text{Concat}(H_1, ..., H_H)W^{(o)}$$
+
+            <p>Algorithmically, multi-head self-attention can be written as (cf. Bishop & Bishop, 2024, p. 368):</p>
+            <div class="pseudocode-box">
+                <p class="algorithm-title">Algorithm 2: Multi-head self-attention</p>
+            <p>\(\text{MultiHead}(Q, K, V)\):</p>
+                    <p class="indented"><i>Input:</i></p>
+                        <ul>
+                            <li>Set of tokens as a matrix \(X \in \mathbb{R}^{N \times D} : \{x_1, ..., x_N\}\)</li>
+                            <li>Query weight matrices \(\{W^{(q)}_1, ..., , W^{(q)}_H\} \in \mathbb{R}^{d_k \times d_k}\)</li>
+                            <li>Key weight matrices \(\{W^{(k)}_1, ..., , W^{(k)}_H\} \in \mathbb{R}^{d_k \times d_k}\)</li>
+                            <li>Value weight matrices \(\{W^{(v)}_1, ..., , W^{(v)}_H\} \in \mathbb{R}^{d_k \times d_v}\)</li>
+                            <li>Output weight matrices \(W^{(o)} \in \mathbb{R}^{Hd_v \times d_k}\)</li>
+                        </ul>
+                    <p class="indented"><i>Output:</i> \(Y \in \mathbb{R}^{N \times d_k} : \{y_1, ..., y_N\} \)</p>
+
+                    <p class="indented">// compute self-attention for each head</p>
+                    <p class="indented"><b>for</b> \(h = 1, ..., H\) <b>do</b></p>
+                    <p class="indented2">\(Q_h = XW^{(q)}_h, \quad K_h = XW^{(k)}_h, \quad V_h = XW^{(v)}_h\)</p>
+                    <p class="indented2">\(H_h = \text{Attention}(Q_h, K_h, V_h)\) // \(H_h \in \mathbb{R}^{N \times d_v}\)</p>
+                    <p class="indented"><b>end for</b></p>
+                    <p class="indented">\(H = \text{Concat}(H_1, ..., H_N)\) // concatenate heads</p>
+
+                    <p class="indented"><b>return \(Y = HW^{(o)}\)</b></p>
+            </div>
             <h3>Residual connections</h3>
-            <p>...</p>
+            <p>Residual connections or skip connections, introduced by <a href="https://ieeexplore.ieee.org/document/7780459">He et al. (2016)</a>, are shortcuts that bypass a given sublayer and add the input of a sublayer to its output, which helps prevent the loss of information in deeper layers and ensures that the model can continue to learn effectively even as the depth increases. They applied around each multi-head attention sublayer and feed-forward network. Mathematically, residual connections can be expressed as:</p>
+
+            $$Z = Y + X$$
+
+            <p>where \(Y\) is the output of a given sublayer (e.g., of the multi-head self-attention layer or the feed-forward neural network) and \(X\) is the original input matrix.</p>
             <h3>Layer normalization</h3>
-            <p>...</p>
+            <p>Layer normalization, introduced by <a href="https://arxiv.org/abs/1607.06450">Ba et al. (2016)</a>, is a technique for normalizing each data sample across the the feature dimension \(D\). It improves training efficiency by fixing the mean and the variance of the summed inputs within each layer, which reduces the "covariate shift problem". For a given input vector \(X = \{x_1, ..., x_D\}\), where \(D\) is the number of hidden units or features, layer normalization computes the empirical mean \(\mu\) and variance \(\sigma^2\) for each input:</p>
+
+            $$\mu_n = \frac{1}{D} \sum^M_{i=1}x_{ni}, \quad \sigma^2_n = \frac{1}{D} \sum^M_{i=1}(x_{ni} - \mu_n)^2$$
+
+            <p>The input is then transformed as follows:</p>
+
+            $$z_{ni} = \frac{x_{ni} - \mu_n}{\sqrt{\sigma^2_n + \epsilon}}$$
+
+            <p>This standardization is analogous to the z-standardization in statistics. Finally, the normalized variable is scaled by \(\gamma\) and shifted by \(\delta\):</p>
+
+            $$y_{ni} = \gamma z_{ni} + \delta$$
+
+            <p>The "Add & Norm" sublayer can then be written as:</p>
+
+            $$Z = \text{LayerNorm}(Y + X)$$
+
             <h3>Feed forward neural network</h3>
-            <p>...</p>
+            <p>The position-wise feed-forward neural network (FFNN) in the Transformer consists of two linear layers with a non-linear activation function, ReLU, between them. The FFNN can be written as:</p>
+
+            $$\text{FFNN}(X) = \text{max}(0, XW_1 + b_1)W_2 + b_2$$
+
+            where:
+
+            <ul>
+                <li>\(X \in \mathbb{R}^{N \times D}\) is the input matrix,</li>
+                <li>\(W_1 \in \mathbb{R}^{D \times d_{ff}}\) and \(W_2 \in \mathbb{R}^{d_{ff} \times D}\) are the learned weight matrices (\(d_{ff}\) is an intermediate dimensionality that is typically larger than \(D\), cf. Vaswani et al., 2017) ,</li>
+                <li>\(b_1 \in \mathbb{R}^{d_{ff}}\) and \(b_2 \in \mathbb{R}^D\) are the bias vectors, and</li>
+                <li>\(\text{max}(0,\cdot)\) is the ReLU activation function.</li>
+            </ul>
+            <p>The FFNN is applied to the output of the "Add & Norm" sublayer:</p>
+
+            $$\tilde{X} = \text{LayerNorm}(\text{MLP}(Z) + Z)$$
+
+            <p>Algorithmically, the transformer layer (multi-head self-attention, add & norm, FFNN) can be expressed as (cf. Bishop & Bishop, 2024, p. 367):</p>
+            <div class="pseudocode-box">
+                <p class="algorithm-title">Algorithm 3: Transformer layer</p>
+                <p>\(\text{TransformLayer}(Y)\):</p>
+                    <p class="indented"><i>Input:</i></p>
+                        <ul>
+                            <li>Set of tokens as a matrix \(X \in \mathbb{R}^{N \times D} : \{x_1, ..., x_N\}\)</li>
+                            <li>Multi-head self-attention layer parameters</li>
+                            <li>Feed-forward neural network parameters</li>
+                        </ul>
+                    <p class="indented"><i>Output:</i> \(\tilde{X} \in \mathbb{R}^{N \times D} : \{\tilde{x}_1, ..., \tilde{x}_N\}\)</p>
+
+                    <p class="indented">\(Z = \text{LayerNorm(Y + X)}\)</p>
+                    <p class="indented">\(\tilde{X} = \text{LayerNorm}(\text{MLP}(Z) + Z)\)</p>
+
+                    <p class="indented"><b>return \(\tilde{X}\)</b></p>
+            </div>
+
             <h3>Linear layer</h3>
-            <p>...</p>
+            <p>A linear layer or fully connected layer applies a learned linear transformation to the input. ...</p>
+
+            $$\tilde{Y} = \tilde{X}W + b$$
+
+            <p>where \(\tilde{X} \in \mathbb{R}^{N \times D}\) is the output from the previous sublayer, \(W \in \mathbb{R}^{D \times V}\) is the learned weight matrix, and \(b \in \mathbb{R}^V\) is the bias vector.</p>
             <h3>Softmax activation function</h3>
+            <p>As a final step, a softmax activation function is applied:</p>
+
+            $$P(y_i = v | \tilde{X}) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
+
+            <p>where ...</p>
+            <h3>Cross-attention</h3>
             <p>...</p>
             <h3>Positional encoding</h3>
             <p>...</p>
