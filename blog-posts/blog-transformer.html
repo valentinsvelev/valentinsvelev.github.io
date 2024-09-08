@@ -46,8 +46,7 @@
             <br>
             <h3>Dot-product self-attention</h3>
             <p>The dot-product self-attention mechanism is a curcial component that enables a Transformer model the importance of different elements in a sequence relative to each other. The mechanism relies on three key components: queries \(Q\), keys \(K\), and values \(V\), which are derived from the input sequence. Queries represent what each token is "looking for" in other tokens, keys represent the features of the tokens that will be matched with the queries, and values hold the information that will be aggregated and passed on to the next layer based on the attention weights.</p>
-            <p>To obtain these components, each input token undergoes a linear transformation, a process in which the input vector is multiplied by a learned weight matrix.</p>
-            <p>A learned weight matrix is a matrix of parameters that is initialized randomly and then updated during the training process. These parameters are "learned" by the model through backpropagation, where the model adjusts the weights to minimize the error between its predictions and the true outputs.</p>
+            <p>To obtain these components, each input token undergoes a linear transformation, a process in which the input vector is multiplied by a learned weight matrix. A learned weight matrix is a matrix of parameters that is initialized randomly and then updated during the training process. These parameters are "learned" by the model through backpropagation, where the model adjusts the weights to minimize the error between its predictions and the true outputs.</p>
             <p>Formally, for each token, the query \(Q\), key \(K\), and value \(V\) are computed as:</p>
 
             $$Q=XW^{(q)}$$
@@ -150,6 +149,12 @@
 
                     <p class="indented"><b>return \(Y = HW^{(o)}\)</b></p>
             </div>
+            <h3>Cross-attention</h3>
+            <p>Cross-attention refers to a variation of the self-attention mechanism, where the output of the encoder is used in the decoder. Specifically, the query matrix \(Q\) comes from the decoder, while the key matrix \(K\) and the value matrix \(V\) come from the encoder. Mathematically, this can be expressed as:</p>
+
+            $$\text{Attention}(Q, K^{'}, V^{'}) = \text{softmax}\left(\frac{QK^{'T}}{\sqrt{d_k}}\right)V^{'}$$
+
+            <p>where the superscript \('\) refers to matrices from the encoder. This mechanism allows the decoder to leverage the contextualized representations learned by the encoder, facilitating more informed and accurate generation of outputs, such as translations or summaries.</p>
             <h3>Residual connections</h3>
             <p>Residual connections or skip connections, introduced by <a href="https://ieeexplore.ieee.org/document/7780459">He et al. (2016)</a>, are shortcuts that bypass a given sublayer and add the input of a sublayer to its output, which helps prevent the loss of information in deeper layers and ensures that the model can continue to learn effectively even as the depth increases. They applied around each multi-head attention sublayer and feed-forward network. Mathematically, residual connections can be expressed as:</p>
 
@@ -209,21 +214,35 @@
             </div>
 
             <h3>Linear layer</h3>
-            <p>A linear layer or fully connected layer applies a learned linear transformation to the input. ...</p>
+            <p>A linear layer or fully connected layer applies a learned linear transformation to the input. It changes the dimensionality of the output from the previous layer to project the model's hidden representations to a vocabulary space \(V\), thereby preparing the hidden states for the softmax layer. The linear transformation can be defined as:</p>
 
             $$\tilde{Y} = \tilde{X}W + b$$
 
-            <p>where \(\tilde{X} \in \mathbb{R}^{N \times D}\) is the output from the previous sublayer, \(W \in \mathbb{R}^{D \times V}\) is the learned weight matrix, and \(b \in \mathbb{R}^V\) is the bias vector.</p>
-            <h3>Softmax activation function</h3>
-            <p>As a final step, a softmax activation function is applied:</p>
+            <p>where \(\tilde{X} \in \mathbb{R}^{N \times D}\) is the output from the previous sublayer, \(W \in \mathbb{R}^{D \times V}\) is the learned weight matrix that defines how the input is transformed, and \(b \in \mathbb{R}^V\) is the bias vector.</p>
+            <h3>Softmax layer</h3>
+            <p>As a final step in the transformer architecture, a softmax activation function is applied to the output of the linear layer to convert the raw scores into probabilities. The softmax function is defined as:</p>
 
-            $$P(y_i = v | \tilde{X}) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
+            $$P(y_i = v | \tilde{Y}_i) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
 
-            <p>where ...</p>
-            <h3>Cross-attention</h3>
-            <p>...</p>
+            <p>where \( P(y_i = v | \tilde{Y}_i) \) is the probability that the model predicts the \( i \)-th token to be word \( v \) from the vocabulary \( V \), and \( \tilde{Y}_{i,v} \) is the output score for word \( v \) from the linear layer at the \( i \)-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.</p>
             <h3>Positional encoding</h3>
-            <p>...</p>
+            <p>In the transformer architecture, the matrices \(W^{(q)}_h\), \(W^{(k)}_h\), and \(W^{(v)}_h\) are shared across all input tokens, as is the subsequent neural network. As a result, the transformer exhibits the property that permuting the order of the input tokens, i.e., rearranging the rows of the input matrix \(X\), leads to the same permutation in the rows of the output matrix \(\tilde{X}\) (see Algorithm 3). This means that a transformer is equivariant with respect to input permutations, which allows for efficient, massively parallel processing and enables the model to learn long-range dependencies as effectively as short-range ones. However, this independence from token order poses a challenge when dealing with sequential data like natural language, where the meaning of a sentence can drastically change with different word orders. For example, the sentences &ldquo;The food was bad, not good at all&rdquo; and &ldquo;The food was good, not bad at all&rdquo; contain the same tokens but convey very different meanings. Thus, to overcome this limitation and account for the importance of word order in sequential tasks, the transformer architecture incorporates <b>positional encoding</b> to inject token order information into the model. Positional encodings allow the transformer to differentiate between tokens based on their position in the sequence, ensuring that the model can capture both the content and the relative order of words. We will therefore construct a position encoding vector \(r_n\) associated with each input position \(n\) and then combine this vector with the associated input token embedding \(x_n\) by adding them:</p>
+
+            $$\tilde{x}_n = x_n + r_n$$
+
+            <p>Note that this requires that \(r_n\) and \(x_n\) have the same dimensionality.</p>
+            <p>Bishop & Bishop (2024, p. 372) have stated &ldquo;[a]n ideal positional encoding should provide a unique representation for each position, it should be bounded, it should generalize to longer sequences, and it should have a consistent way to express the number of steps between any two input vectors irrespective of their absolute position because the relative position of tokens is often more important than the absolute position.&rdquo;.</p>
+            <p>However, many approaches to positional encoding exist (Dufter et al., 2022). Here I will describe a technique based on sinusoidal functions used in Vaswani et al. (2017). For a given position \(n\) the components of the positional-encoding vector \(r_{ni}\) are given by:</p>
+
+            $$
+            r_{ni} = \left\{
+            \begin{array}{ll}
+                \text{sin}(\frac{n}{T^{i/D}}) & \text{if } i \text{ is even}, \\
+                \text{cos}(\frac{n}{T^{(i-1)/D}}) & \text{if } i \text{ is odd},
+            \end{array} \right.
+            $$
+
+            <p>where \(i\) is the position of a token and \(T\) is \(10^4\).</p>
         </div>
     </div>
 
