@@ -53,8 +53,8 @@ h2 {
 
 .title-container {
     width: 100%;
-    background-color: #811aff;
-    color: white;
+    background-color: #eeeeee;
+    color: black;
     padding: 20px 0;
 }
 
@@ -79,7 +79,7 @@ hr {
 }
 
 .footer {
-    background: #2e085d;
+    background: #201e43;
     color: white;
     text-align: center;
     padding: 20px;
@@ -95,7 +95,7 @@ hr {
 /** Info **/
 header {
     width: 100%;
-    background-color: #2e085d;
+    background-color: #201e43;
     padding: 25px 0;
 }
 
@@ -167,7 +167,7 @@ header {
 }
 
 .header-nav ul li a.active {
-    background-color: #811aff;
+    background-color: #508c9b;
     color: white;
     font-weight: bold;
 }
@@ -183,7 +183,7 @@ a:visited {
 
 a:hover {
     color: white; /* Optional: changes color on hover for a visual effect */
-    background-color: #811aff;
+    background-color: #508c9b;
 }
 
 a:active {
@@ -191,6 +191,29 @@ a:active {
 }
 
 /* Clickable icons */
+/** In the header **/
+.icon-link-header {
+    text-decoration: none; /* Remove underline */
+    display: inline-flex; /* Use inline-flex for better control */
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+}
+
+.icon-link-header:hover {
+    outline: none; /* Remove any outline or border on the link itself */
+    background-color: transparent; /* Ensure no background color appears on hover */
+}
+
+.icon-link-header i {
+    color: white; /* Initial color of the icon */
+    transition: color 0.3s ease; /* Smooth transition for the color change */
+}
+
+.icon-link-header i:hover {
+    color: #508c9b; /* Color of the icon on hover */
+}
+
+/** In the text **/
 .icon-link {
     text-decoration: none; /* Remove underline */
     display: inline-flex; /* Use inline-flex for better control */
@@ -209,9 +232,8 @@ a:active {
 }
 
 .icon-link i:hover {
-    color: #811aff; /* Color of the icon on hover */
+    color: #508c9b; /* Color of the icon on hover */
 }
-
 
 /* Buttons */
 .button {
@@ -232,11 +254,11 @@ a:active {
 .button1 {
     background-color: white; 
     color: black; 
-    border: 2px solid #2e085d;
+    border: 2px solid #201e43;
 }
 
 .button1:hover {
-    background-color: #811aff;
+    background-color: #508c9b;
     color: white;
     font-weight: bold;
     transform: translateY(1px);
@@ -245,11 +267,11 @@ a:active {
 .button2 {
     background-color: white;
     color: black; 
-    border: 2px solid #450f88;
+    border: 2px solid #201e43;
 }
 
 .button2:hover {
-    background-color: #811aff;
+    background-color: #508c9b;
     color: white;
     font-weight: bold;
     transform: translateY(1px);
@@ -292,7 +314,7 @@ a:active {
 .blog-post a:hover {
     transform: translateY(1px);
     color: white;
-    background-color: #811aff;
+    background-color: #508c9b;
     border-radius: 10px;
     padding: 10px;
 }

@@ -17,8 +17,9 @@
                 <h1>Valentin Velev</h1>
                 <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
                 <p>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:valentin.velev@uni-konstanz.de" style="color:white">valentin.velev@uni-konstanz.de</a>
+                    <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
+                    <a href="" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-github fa-lg"></i></a>
+                    <a href="" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
                 </p>
             </div>
             <nav class="header-nav">
@@ -53,16 +54,47 @@
                 <p class="indented"><em>Sentiment:&rdquo;</em></p>
 
             <p>Domain-specific fine-tuning or &ldquo;instruction tuning&rdquo; has been shown to improve the output when using zero-shot prompts (Wei et al., 2022).</p>
-            <p><b>Few-Shot Prompting</b>, introduced by Brown et al. (2020), comprises a prompt that contains an instruction and a few examples to induce a better understanding of the task and generate a better response (Brown et al., 2020; Sahoo et al., 2024). It is called “few-shot” because the model is given a small number of examples (“shots”).</p>
-            <p>An example of a few-shot prompt is: <em>"..."</em></p>
-            <p><b>Chain-of-Thought (CoT) Prompting</b>, introduced by Wei et al. (2022), ...</p>
-            <p>An example of a CoT prompt is: <em>"..."</em></p>
-            <p><b>Tree of Throughts (ToT) Prompting</b>, introduced by Yao et al. (2023) and Long (2023), ...</p>
-            <p>An example of a ToT prompt is: <em>"..."</em></p>
+            <p><b>Few-Shot Prompting</b>, introduced by Brown et al. (2020), comprises a prompt that contains an instruction and a few examples to induce a better understanding of the task and generate a better response (Brown et al., 2020; Sahoo et al., 2024). It is called “few-shot” because the model is given a small number of examples (“shots”). An example of a few-shot prompt is:</p>
+
+                <p class="indented"><em>&ldquo;This is awesome! // Negative</em></p>
+                <p class="indented"><em>This is bad! // Positive</em></p>
+                <p class="indented"><em>Wow that movie was rad! // Positive</em></p>
+                <p class="indented"><em>What a horrible show! //&rdquo;</em></p>
+
+            <p>Note that few-shot prompting is most effective when model size is large enough (Kaplan et al., 2020).</p>
+            <p><b>Chain-of-Thought (CoT) Prompting</b>, introduced by Wei et al. (2022), is an approach that enables complex reasoning capabilities through intermediate reasoning steps, i.e., by providing a step-by-step explanation or reasoning process that led the model to its final answer. This approach helps language models better handle tasks requiring multi-step reasoning, such as mathematical problem solving, logical deduction, or comprehension tasks. An example of a (one-shot) CoT prompt is:</p>
+
+                <p class="indented"><em>&ldquo;Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?</em></p>
+                <p class="indented"><em>A: Roger started with 5 balls. 2 cans of 3 tennis balls each is 6 tennis balls. 5 + 6 = 11. The answer is 11.</em></p>
+                <p class="indented"><em>Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many apples do they have?&rdquo;</em></p>
+
+            <p>Note that CoT prompting can be combined with zero-shot or few-shot prompting (cf. Kojima et al., 2022; Wang et al., 2023). Furthermore, as with few-shot prompting, when using CoT, the model must be large enough to be able to reason (Wei et al., 2022).</p>
+            <p><b>Tree of Throughts (ToT) Prompting</b>, introduced by Long (2023) and Yao et al. (2023), is a technique the model maintains a tree of thoughts, where thoughts serve as intermediate steps toward solving a problem, encouraging the model to self-evaluate. The tree of thoughts is then traversed using breadth-first search (BFS) or depth-first search (DFS). An example of a single ToT prompt is:</p>
+
+                <p class="indented"><em>&ldquo;Imagine three different experts are answering this question.</em></p>
+                <p class="indented"><em>All experts will write down 1 step of their thinking,</em></p>
+                <p class="indented"><em>then share it with the group.</em></p>
+                <p class="indented"><em>Then all experts will go on to the next step, etc.</em></p>
+                <p class="indented"><em>If any expert realises they're wrong at any point then they leave.</em></p>
+                <p class="indented"><em>The question is...&rdquo;</em></p>
+
             <h3>Decoding Algorithms</h3>
             <p>Decoding algorithms are then used to translate the probabilities of a sentence \(s\) with \(t\) words \(w_1, ..., w_{i-1}\) into coherent and intelligible text (natural language). The choice of a decoding algorithm has been shown to significantly affect the quality and diversity of the generated text (Ippolito et al., 2019; Wiher et al., 2022; Zhang et al., 2021). In this blog post, I will cover several common decoding methods.</p>
-            <p><b>Greedy Search</b></p>
-            <p><b>Beam Search</b></p>
+            <p><b>Greedy Search</b> is the simplest decoding method. It selects the token with the highest probability as its next word at each timestep, aiming to generate the most likely sequence. Mathematically, this can be expressed as:</p>
+
+            $$y_t = \arg \max_{y} P(y|y_1, ..., y_{t-1}, x)$$
+
+            <p>where \(y_t\) is the token with the highest probability at timestep \(t\), \(y_1, ..., y_{t-1}\) are the previously generated tokens and \(x\) is the input. The main problem with this approach is ...</p>
+            <p><b>Beam Search</b> maintains multiple candidate sequences (&ldquo;beams&rdquo;), allowing it to explore multiple potential outputs, thereby reducing the risk of missing high probability sequences. At each step \(t\), for each partial sequence \(y_1, ..., y_{t-1}\) in the beam, the algorithm considers the probability distribution over the next possible tokens \(P(y_t|y_1, ..., y_{t-1},x)\), and extends the sequence by selecting the top \(B\) tokens according to:</p>
+
+            $$\text{score}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
+
+            <p>where:</p>
+            <ul>
+                <li>\(y_1, ..., y_t\) is the candidate sequence up to step \(t\),</li>
+                <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\)</li>
+                <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
+            </ul>
             <p><b>Top-k sampling</b></p>
             <p><b>Nucleus sampling</b> (also top-p sampling), introduced by Holtzman et al. (2020), is a stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold p. Mathematically this can be expressed as:</p>
 
