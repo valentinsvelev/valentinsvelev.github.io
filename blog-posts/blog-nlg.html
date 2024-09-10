@@ -92,11 +92,11 @@
             <p>where:</p>
             <ul>
                 <li>\(y_1, ..., y_t\) is the candidate sequence up to step \(t\),</li>
-                <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\)</li>
+                <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\),</li>
                 <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
             </ul>
-            <p><b>Top-k sampling</b></p>
-            <p><b>Nucleus sampling</b> (also top-p sampling), introduced by Holtzman et al. (2020), is a stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold p. Mathematically this can be expressed as:</p>
+            <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, ...</p>
+            <p><b>Nucleus sampling</b> (also top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is a stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold p. Mathematically this can be expressed as:</p>
 
             $$\sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
 
@@ -112,7 +112,11 @@
             $$
 
             <p>Given this formula, the probabilites of all words that are <i>not</i> in the top-p vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
-            <p><b>Temperature</b></p>
+            <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, ...</p>
+            <p>\(\boldsymbol{\eta}\)<b>-sampling</b>, introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, ...</p>
+            <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023)</a>, ...</p>
+            <h3>Domain-specific fine-tuning</h3>
+            <p>...</p>
         </div>
     </div>
 

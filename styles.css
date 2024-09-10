@@ -23,6 +23,11 @@ h2 {
     font-size: 26px;
 }
 
+.img-border {
+    border: 5px solid #508c9b;
+    border-radius: 75px;
+}
+
 .indented {
     padding-left: 40px;
     text-align: justify;
@@ -283,7 +288,7 @@ a:active {
     background-color: white;
     border: 2px solid #b9b9b9;
     border-radius: 10px;
-    width: 100%;
+    width: 49%;
     text-align: center;
     transition-duration: 0.3s;
     box-sizing: border-box;
