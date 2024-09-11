@@ -19,7 +19,7 @@
                 <p>
                     <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
                     <a href="" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a href="https://www.linkedin.com/in/valentinvelev/" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
                 </p>
             </div>
             <nav class="header-nav">
@@ -95,13 +95,25 @@
                 <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\),</li>
                 <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
             </ul>
-            <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, ...</p>
-            <p><b>Nucleus sampling</b> (also top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is a stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold p. Mathematically this can be expressed as:</p>
+            <p></p>
+            <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, is a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the \(k\) highest-probability tokens. Given a distribution \(P(w_i|w_1, ..., w_{i-1})\), its top-\(k\) vocabulary \(V^{(k)} \subset V\) is defined as:</p>
+            <p>Let \(Z = \sum_{x \in V^{(k)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
+
+            $$
+            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+            \begin{array}{ll}
+                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(k)}, \\
+                0 & \text{otherwise}.
+            \end{array} \right.
+            $$
+
+            <p>The limitation of top-\(k\) sampling is that having a fixed vocabulary size \(k\)across the whole text generation process can increase the risk of generating generic and even incoherent text (<a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. 2020</a>).</p>
+            <p><b>Nucleus sampling</b> (also known as top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is also a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold \(p\). Mathematically this can be expressed as:</p>
 
             $$\sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
 
             <p>where \(V^{(p)} \subset V\) is the top-p vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
-            <p>Let \(Z = \sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then sampled from a re-scaled version of the original probability distribution:</p>
+            <p>Let \(Z = \sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
 
             $$
             P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
@@ -111,9 +123,14 @@
             \end{array} \right.
             $$
 
-            <p>Given this formula, the probabilites of all words that are <i>not</i> in the top-p vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
-            <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, ...</p>
-            <p>\(\boldsymbol{\eta}\)<b>-sampling</b>, introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, ...</p>
+            <p>Given this formula, the probabilites of all words that are <i>not</i> in the top-\(p\) vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
+            <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, is a method that modifies the probability distribution before sampling, i.e., before generating each word, controlling the level of &ldquo;creativity&rdquo; of the model. Mathematically, temperature \(t\) is a positive scalar applied to the logits \(z\) (raw outputs of the model):</p>
+
+            $$P^{*}(w_i|w_1, ..., w_{i-1}) = \frac{\exp(z_i/t)}{\sum_j \exp(z_j/t)}$$
+
+            <p>where \(t \in [0,1)\), where \(t=1\) would preserve the original probability distribution. Temperature is often combined with techniques like top-\(k\) or top-\(p\) sampling to achieve a balance between diversity and coherence in the generated text.</p>
+            <p>\(\boldsymbol{\eta}\)<b>-sampling</b> (pronounced eta-sampling), introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, ...</p>
+            <p>with \(\alpha = \sqrt{\epsilon}\) and \(\epsilon = 0.0009\).</p>
             <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023)</a>, ...</p>
             <h3>Domain-specific fine-tuning</h3>
             <p>...</p>
@@ -122,7 +139,7 @@
 
     <footer>
         <div class="footer">
-            <p>Last update: 2024-09-02. Hosted on GitHub Pages.</p>
+            <p>Last update: 2024-09-11. Hosted on GitHub Pages.</p>
             <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
         </div>
     </footer>

@@ -75,14 +75,6 @@ h2 {
     min-height: 100%;
 }
 
-hr {
-    border: none;                           /* Removes the default border */
-    height: 2px;                            /* Sets the thickness of the line */
-    background-color: black;              /* Sets the color of the line */
-    margin: 15px 0;                         /* Adds some space above and below the line */
-    width: 100%;                            /* Optional: Sets the width of the line, centered */
-}
-
 .footer {
     background: #201e43;
     color: white;
@@ -95,6 +87,8 @@ hr {
     margin-top: 5px;
     margin-bottom: 2px;
 }
+
+/**********************************************************************************************************/
 
 /* Header */
 /** Info **/
@@ -177,6 +171,8 @@ header {
     font-weight: bold;
 }
 
+/**********************************************************************************************************/
+
 /* Links */
 a {
     color: black;
@@ -194,6 +190,8 @@ a:hover {
 a:active {
     color: black; /* Ensures links remain black when clicked */
 }
+
+/**********************************************************************************************************/
 
 /* Clickable icons */
 /** In the header **/
@@ -240,6 +238,8 @@ a:active {
     color: #508c9b; /* Color of the icon on hover */
 }
 
+/**********************************************************************************************************/
+
 /* Buttons */
 .button {
     border: none;
@@ -281,6 +281,8 @@ a:active {
     font-weight: bold;
     transform: translateY(1px);
 }
+
+/**********************************************************************************************************/
 
 /* Blog posts */
 /** Styling for each blog post box **/
@@ -324,6 +326,8 @@ a:active {
     padding: 10px;
 }
 
+/**********************************************************************************************************/
+
 /* Algorithms */
 /** Box for algorithms **/
 .pseudocode-box {
@@ -343,4 +347,53 @@ a:active {
 .algorithm-title {
     font-size: 16px;
     font-weight: bold;
+}
+
+/**********************************************************************************************************/
+
+/* Hamburger button styling */
+.nav-toggle {
+    display: none; /* Hide the hamburger button on large screens */
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .nav-toggle {
+        display: block; /* Show the hamburger button on small screens */
+        margin-bottom: 10px;
+    }
+
+    .nav-menu {
+        display: none; /* Hide nav menu by default */
+        flex-direction: column; /* Stack menu items vertically */
+        width: 100%;
+        background-color: white;
+    }
+
+    .nav-menu li {
+        width: 100%; /* Each item fills the screen horizontally */
+        text-align: center; /* Center the text */
+    }
+
+    .nav-menu li a {
+        padding: 15px;
+        background-color: #f0f0f0; /* Adjust background color */
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* When the hamburger is clicked and the "active" class is applied */
+    .header-nav.active .nav-menu {
+        display: flex; /* Display the nav menu */
+    }
 }
