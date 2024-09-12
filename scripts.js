@@ -2,7 +2,7 @@
 // Highlight current website
 document.addEventListener("DOMContentLoaded", function() {
     const currentLocation = window.location.href;
-    const navLinks = document.querySelectorAll("nav ul li a");
+    const navLinks = document.querySelectorAll("#nav-menu li a");
 
     navLinks.forEach((link) => {
         if (link.href === currentLocation) {
@@ -30,36 +30,39 @@ document.querySelectorAll(".downloadBtn").forEach(function(button) {
     });
 });
 
-// Responsiveness
-window.addEventListener('resize', function() {
-    var width = window.innerWidth;
-    var headerContainer = document.querySelector('.header-container');
-    var navToggle = document.querySelector('.nav-toggle');
-    var container = document.querySelector('.header-info');
-    var container_h1 = container.querySelector('h1');
-    var container_p = container.querySelector('p');
-    var titleText = document.querySelector('.title-text');
-    var footer = document.querySelector('.footer');
+// Responsive navbar
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
 
-    // Adjust font sizes and center header text
-    if (width < 768) {
-        headerContainer.style.textAlign = 'center';
-        container_h1.style.fontSize = '30px';
-        container_p.style.fontSize = '18px';
-        titleText.style.fontSize = '22px';
-        footer.style.fontSize = '15px';
+hamburger.addEventListener("click", function() {
+    // Toggle the "change" class for the hamburger animation
+    hamburger.classList.toggle("change");
+
+    // Toggle the visibility of the nav menu
+    navMenu.classList.toggle("show");
+});
+
+// Responsive iframes (PDF preview frames)
+// Function to adjust the zoom level for a given iframe
+function adjustPdfZoom(iframe, pdfFile) {
+    if (window.innerWidth < 768) {
+        iframe.src = pdfFile + "#zoom=50"; // Zoom out on smaller screens
+    } else {
+        iframe.src = pdfFile + "#zoom=100"; // Default zoom on larger screens
     }
+}
 
-    // Center hamburger button
-    navToggle.style.margin = 'auto';
-});
+// Adjust zoom for all iframes with the class 'pdf'
+function adjustAllPdfs() {
+    const pdfFrames = document.querySelectorAll(".pdf"); // Select all iframes with class "pdf"
 
-// Select the hamburger button and the nav element
-var navToggle = document.querySelector('.nav-toggle');
-var headerNav = document.querySelector('.header-nav');
+    // Loop through each iframe and adjust the zoom
+    pdfFrames.forEach((iframe, index) => {
+        const pdfFile = iframe.src; // Get the PDF file URL without zoom parameter
+        adjustPdfZoom(iframe, pdfFile); // Adjust zoom for each iframe
+    });
+}
 
-// Add a click event listener to the hamburger button
-navToggle.addEventListener('click', function() {
-    // Toggle the "active" class on the header nav element
-    headerNav.classList.toggle('active');
-});
+// Adjust zoom level on page load and window resize
+window.addEventListener('load', adjustAllPdfs);
+window.addEventListener('resize', adjustAllPdfs);
