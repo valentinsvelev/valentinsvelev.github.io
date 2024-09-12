@@ -41,28 +41,3 @@ hamburger.addEventListener("click", function() {
     // Toggle the visibility of the nav menu
     navMenu.classList.toggle("show");
 });
-
-// Responsive iframes (PDF preview frames)
-// Function to adjust the zoom level for a given iframe
-function adjustPdfZoom(iframe, pdfFile) {
-    if (window.innerWidth < 768) {
-        iframe.src = pdfFile + "#zoom=50"; // Zoom out on smaller screens
-    } else {
-        iframe.src = pdfFile + "#zoom=100"; // Default zoom on larger screens
-    }
-}
-
-// Adjust zoom for all iframes with the class 'pdf'
-function adjustAllPdfs() {
-    const pdfFrames = document.querySelectorAll(".pdf"); // Select all iframes with class "pdf"
-
-    // Loop through each iframe and adjust the zoom
-    pdfFrames.forEach((iframe, index) => {
-        const pdfFile = iframe.src; // Get the PDF file URL without zoom parameter
-        adjustPdfZoom(iframe, pdfFile); // Adjust zoom for each iframe
-    });
-}
-
-// Adjust zoom level on page load and window resize
-window.addEventListener('load', adjustAllPdfs);
-window.addEventListener('resize', adjustAllPdfs);
