@@ -389,8 +389,20 @@ a:active {
 
 /**********************************************************************************************************/
 
+.math-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/**********************************************************************************************************/
+
 /* Styles for screens smaller than 768px */
 @media only screen and (max-width: 768px){
+    .images {
+        max-width: 100%;
+    }
+
     .header-container {
         text-align: center;
     }
@@ -499,5 +511,11 @@ a:active {
     
     .indented2 {
         padding-left: 40px;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .footer p {
+        font-size: 13px;
     }
 }

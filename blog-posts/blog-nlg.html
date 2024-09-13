@@ -8,7 +8,14 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+            "HTML-CSS": { availableFonts: ["TeX"], scale: 100 },
+            messageStyle: "none"
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -95,7 +102,7 @@
             <p>where \(y_t\) is the token with the highest probability at timestep \(t\), \(y_1, ..., y_{t-1}\) are the previously generated tokens and \(x\) is the input. The main problem with this approach is ...</p>
             <p><b>Beam Search</b> maintains multiple candidate sequences (&ldquo;beams&rdquo;), allowing it to explore multiple potential outputs, thereby reducing the risk of missing high probability sequences. At each step \(t\), for each partial sequence \(y_1, ..., y_{t-1}\) in the beam, the algorithm considers the probability distribution over the next possible tokens \(P(y_t|y_1, ..., y_{t-1},x)\), and extends the sequence by selecting the top \(B\) tokens according to:</p>
 
-            $$\text{score}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
+            $$\mathcal{L}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
 
             <p>where:</p>
             <ul>
@@ -103,51 +110,97 @@
                 <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\),</li>
                 <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
             </ul>
-            <p></p>
+            <p>Other scoring functions, such as diverse beam search (DBS; <a href="https://openreview.net/forum?id=HJV1zP5xg">Vijayakumar et al., 2017</a>), have been propsed to address the issue of lack of diversity in the generated text.</p>
             <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, is a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the \(k\) highest-probability tokens. Given a distribution \(P(w_i|w_1, ..., w_{i-1})\), its top-\(k\) vocabulary \(V^{(k)} \subset V\) is defined as:</p>
-            <p>Let \(Z = \sum_{x \in V^{(k)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
 
-            $$
-            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
-            \begin{array}{ll}
-                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(k)}, \\
-                0 & \text{otherwise}.
-            \end{array} \right.
-            $$
+            $$V^{(k)} = \{w \in V \mid \text{rank}(P(w_i|w_1, ..., w_{i-1})) \le k \}$$
+
+            <p>where \(V^{(k)} \subset V\) is the top-\(k\) vocabulary, \(\text{rank}(\cdot)\) represents the rank of the probability of word \(w\), where the rank is determined by sorting the probabilities in descending order, and \(k\) is the pre-defined threshold.</p>
+            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a>is:</p>
+
+            $$V^{(k)} = \underset{V^{(k)} \subset V}{\arg \max} \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1}) \quad \textit{s.t.} \quad |V^{(k)}| = k$$
+
+            <p>Let \(Z = \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
+
+            <div class="math-container">
+                $$
+                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+                \begin{array}{ll}
+                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(k)}, \\
+                    0 & \text{otherwise}.
+                \end{array} \right.
+                $$
+            </div>
 
             <p>The limitation of top-\(k\) sampling is that having a fixed vocabulary size \(k\)across the whole text generation process can increase the risk of generating generic and even incoherent text (<a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. 2020</a>).</p>
             <p><b>Nucleus sampling</b> (also known as top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is also a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold \(p\). Mathematically this can be expressed as:</p>
 
-            $$\sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
+            $$\sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
 
-            <p>where \(V^{(p)} \subset V\) is the top-p vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
-            <p>Let \(Z = \sum_{x \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
+            <p>where \(V^{(p)} \subset V\) is the top-\(p\) vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
+            <p>Let \(Z = \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
 
-            $$
-            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
-            \begin{array}{ll}
-                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(p)}, \\
-                0 & \text{otherwise}.
-            \end{array} \right.
-            $$
+            <div class="math-container">
+                $$
+                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+                \begin{array}{ll}
+                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(p)}, \\
+                    0 & \text{otherwise}.
+                \end{array} \right.
+                $$
+            </div>
 
-            <p>Given this formula, the probabilites of all words that are <i>not</i> in the top-\(p\) vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
+            <p>As with top-\(k\), the probabilites of all words that are <i>not</i> in the top-\(p\) vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
             <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, is a method that modifies the probability distribution before sampling, i.e., before generating each word, controlling the level of &ldquo;creativity&rdquo; of the model. Mathematically, temperature \(t\) is a positive scalar applied to the logits \(z\) (raw outputs of the model):</p>
 
             $$P^{*}(w_i|w_1, ..., w_{i-1}) = \frac{\exp(z_i/t)}{\sum_j \exp(z_j/t)}$$
 
             <p>where \(t \in [0,1)\), where \(t=1\) would preserve the original probability distribution. Temperature is often combined with techniques like top-\(k\) or top-\(p\) sampling to achieve a balance between diversity and coherence in the generated text.</p>
-            <p>\(\boldsymbol{\eta}\)<b>-sampling</b> (pronounced eta-sampling), introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, ...</p>
-            <p>with \(\alpha = \sqrt{\epsilon}\) and \(\epsilon = 0.0009\).</p>
-            <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023)</a>, ...</p>
+            <p>\(\boldsymbol{\eta}\)<b>-sampling</b> (pronounced eta-sampling), introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, is an entropy-based method that improves on top-\(p\) sampling by introducing a dynamic threshold. Mathematically, \(\eta\)-sampling can be expressed as obtaining the truncation set \(\mathcal{C}(y_{\lt t})\) at each timestep:</p>
+
+            $$\mathcal{C}(y_{\lt t}) = \{y \in V \mid P(y|y_{\lt t}) \gt \eta\}$$
+
+            <p>where \(\eta = \min(\epsilon, \sqrt{\epsilon} \exp(-H(P(y|y_{\lt t}))))\), \(H(\cdot)\) denotes the entropy, and \(\epsilon = 0.0009\) (cf. Hewitt et al., 2022).</p>
+            Let \(Z = \sum_{w \in \mathcal{C}(y_{\lt t})} P(w_i|w_1, ..., w_{i-1})\). The next word is then once again sampled from a re-scaled version of the previous probability distribution:
+
+            <div class="math-container">
+                $$
+                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+                \begin{array}{ll}
+                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in \mathcal{C}(y_{\lt t}), \\
+                    0 & \text{otherwise}.
+                \end{array} \right.
+                $$
+            </div>
+
+            <p>As with top-\(k\) and top-\(p\) sampling, the probabilites of all words that are <i>not</i> in the truncation set at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
+            <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a>, is also an entropy-based method that uses conditional entropy and (locally) typical sets, i.e., sets of words that fall within a specific range of the conditional entropy at each step of the text generation process. Mathematically, locally typical sampling can be expressed as a subset optimization problem to define the truncation set \(\mathcal{C}(y_{\lt t})\):</p>
+
+            <div class="math-container">
+            $$
+            \min_{\mathcal{C}(y_{\lt t}) \in \mathcal{P}(V)} \sum_{y \in \mathcal{C}(y_{\lt t})} \left| H(Y_t | Y_{\lt t} = y_{\lt t}) + \log P(y | y_{\lt t}) \right| \quad
+
+            \textit{s.t.} \quad \sum_{y \in \mathcal{C}(y_{\lt t})} P(y | y_{\lt t}) \geq \tau
+            $$
+            </div>
+
+            <p>where:</p>
+            <ul>
+                <li>\(\mathcal{C}(y_{\lt t})\) is the truncation set, i.e., the set of words considered at timestep \(t\). It is a subset of the vocabulary, where \(\mathcal{P}(V)\) denotes the power set of \(V\), that is, all possible subsets of the vocabulary.</li>
+                <li>\(H(Y_t | Y_{\lt t} = y_{\lt t})\) is the conditional entropy of the next word \(Y_t\), given the preceeding words \(Y_{\lt t}\).</li>
+                <li>\(\log P(y | y_{\lt t})\) is the log-probability of selecting a word \(y\), given the prior context \(y_{\lt t}\).</li>
+            </ul>
+            <p>The aim of locally typical sampling is to minimize the absolute difference between the conditional entropy and the log-probability for each word in the truncation set.</p>
             <h3>Domain-specific fine-tuning</h3>
+            <p>...</p>
+            <h3>Concluding remarks</h3>
             <p>...</p>
         </div>
     </div>
 
     <footer>
         <div class="footer">
-            <p>Last update: 2024-09-11. Hosted on GitHub Pages.</p>
+            <p>Last update: 2024-09-13. Hosted on GitHub Pages.</p>
             <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
         </div>
     </footer>

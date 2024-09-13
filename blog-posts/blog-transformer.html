@@ -8,7 +8,14 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+            "HTML-CSS": { availableFonts: ["TeX"], scale: 100 },
+            messageStyle: "none"
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -50,7 +57,7 @@
         <div class="container">
             <p>The Transformer architecture was first introduced in 2017 by a team of researchers at Google (cf. Vaswani et al., 2017). Originally, their model was developed for machine translation, i.e., the automated translation of text across different languages. However, researchers soon realized that Transformer-based models significantly outperform traditional machine learning models in almost all areas (exceptions include: random forest regression for a classification task using tabular data and logit regression for the prediction of tsunamis). Today almost all state-of-the-art generative models, such as OpenAI's GPT-4o, Meta AI's LLaMA 3.1, Google's Gemini 1.5, and Anthropic's Claude 3.5, are based on the Transformer architecture. To get a better understanding of what goes on behind these and other Transformer-based models, I will explain (some) of the math behind the Transformer. This blog post will cover (scaled) dot-product self-attention, (masked) multi-head self-attention, layer normalization, feed forward neural network, linear layer, softmax function, and positional encoding.</p>
             <br>
-            <div style="display:flex; justify-content:center;"><img src="../images/transformer.PNG" style="width:438px; height:559.5px;"></div>
+            <div style="display:flex; justify-content:center;"><img src="../images/transformer.PNG" style="width:438px; height:559.5px;" class="images"></div>
             <p style="display:flex; justify-content:center;">Figure 1: The Transformer architecture (Vaswani et al., 2017)</p>
             <br>
             <h3>Dot-product self-attention</h3>
@@ -62,7 +69,7 @@
             $$K=XW^{(k)}$$
             $$V=XW^{(v)}$$
 
-            <p>where</p> 
+            <p>where</p>
             <ul>
                 <li>\(X \in \mathbb{R}^{N \times D}\) is the input matrix of positional token embeddings,</li>
                 <li>\(W^{(q)} \in \mathbb{R}^{D \times d_k}\), \(W^{(k)} \in \mathbb{R}^{D \times d_k}\), and \(W^{(v)} \in \mathbb{R}^{D \times d_v}\) are the learned weight matrices that map the input into query, key, and value spaces, respectively, and</li>
@@ -94,7 +101,9 @@
             <p>This step is what allows the model to aggregate information from the entire sequence, with each token focusing on the most relevant tokens (based on the computed attention weights) to form its representation. This weighted aggregation is key to the model's ability to capture long-range dependencies and contextual information across the input sequence.</p>
             <p>Taking everything together, we obtain the following formula for computing scaled dot-product self-attention:</p>
 
-            $$\text{Y} = \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+            <div class="math-container">
+                $$\text{Y} = \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+            </div>
 
             <p>Algorithmically, scaled dot-product self-attention can be expressed as (cf. Bishop & Bishop, 2024, p. 367):</p>
             <div class="pseudocode-box">
@@ -161,7 +170,9 @@
             <h3>Cross-attention</h3>
             <p>Cross-attention refers to a variation of the self-attention mechanism, where the output of the encoder is used in the decoder. Specifically, the query matrix \(Q\) comes from the decoder, while the key matrix \(K\) and the value matrix \(V\) come from the encoder. Mathematically, this can be expressed as:</p>
 
-            $$\text{Attention}(Q, K^{'}, V^{'}) = \text{softmax}\left(\frac{QK^{'T}}{\sqrt{d_k}}\right)V^{'}$$
+            <div class="math-container">
+                $$\text{Attention}(Q, K^{'}, V^{'}) = \text{softmax}\left(\frac{QK^{'T}}{\sqrt{d_k}}\right)V^{'}$$
+            </div>
 
             <p>where the superscript \('\) refers to matrices from the encoder. This mechanism allows the decoder to leverage the contextualized representations learned by the encoder, facilitating more informed and accurate generation of outputs, such as translations or summaries.</p>
             <h3>Residual connections</h3>
@@ -173,7 +184,9 @@
             <h3>Layer normalization</h3>
             <p>Layer normalization, introduced by <a href="https://arxiv.org/abs/1607.06450">Ba et al. (2016)</a>, is a technique for normalizing each data sample across the the feature dimension \(D\). It improves training efficiency by fixing the mean and the variance of the summed inputs within each layer, which reduces the "covariate shift problem". For a given input vector \(X = \{x_1, ..., x_D\}\), where \(D\) is the number of hidden units or features, layer normalization computes the empirical mean \(\mu\) and variance \(\sigma^2\) for each input:</p>
 
-            $$\mu_n = \frac{1}{D} \sum^M_{i=1}x_{ni}, \quad \sigma^2_n = \frac{1}{D} \sum^M_{i=1}(x_{ni} - \mu_n)^2$$
+            <div class="math-container">
+                $$\mu_n = \frac{1}{D} \sum^M_{i=1}x_{ni}, \quad \sigma^2_n = \frac{1}{D} \sum^M_{i=1}(x_{ni} - \mu_n)^2$$
+            </div>
 
             <p>The input is then transformed as follows:</p>
 
