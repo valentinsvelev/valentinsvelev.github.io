@@ -483,4 +483,21 @@ a:active {
     .hamburger.change .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+
+    .pseudocode-box {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .pseudocode-box ul {
+        padding-left: 10px;
+    }
+
+    .indented {
+        padding-left: 20px;
+    }
+    
+    .indented2 {
+        padding-left: 40px;
+    }
 }
