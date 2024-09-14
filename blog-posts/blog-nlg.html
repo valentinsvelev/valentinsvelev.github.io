@@ -192,9 +192,34 @@
             </ul>
             <p>The aim of locally typical sampling is to minimize the absolute difference between the conditional entropy and the log-probability for each word in the truncation set.</p>
             <h3>Domain-specific fine-tuning</h3>
-            <p>...</p>
+            <p>Domain-specific fine-tuning, also known as &ldquo;instruction tuning&rdquo; (Wei et al., 2022), is a technique in NLG, where a pre-trained models' parameters are adapted to perform optimally within a specific field or subject area. It involves further training a pre-trained model on a domain-specific dataset \(D\) and, in doing so, adjust the model's parameters \(\theta\) to better capture the nuances and intricacies of the target domain.</p>
+            <p>Mathematically, domain-specific fine-tuning can be expressed as a optimization problem to find the set of parameters \(\theta^{*}\) that minimize the loss function \(L(\theta)\):</p>
+
+            $$\theta^{*} = \arg \min_{\theta} \sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta)$$
+
+            <p>where:</p>
+            <ul>
+                <li>\(x_i\) is the input,</li>
+                <li>\(y_i\) is the output, and</li>
+                <li>\(P(y_i|x_i,\theta)\) is the probability that the model assigns to the target output given the input context, parameterized by \(\theta\).</li>
+            </ul>
+            <p>The optimization is typically performed using gradient-based methods like stochastic gradient descent (SGD) or its variants (e.g., Adam optimizer). The parameters are updated iteratively:</p>
+
+            $$\theta \leftarrow \theta - \eta \nabla_{\theta}L(\theta)$$
+
+            <p>where:</p>
+            <ul>
+                <li>\(\eta\) is the learning rate and</li>
+                <li>\(\nabla_{\theta}L(\theta)\) is the gradient of the loss function with respect to the parameters \(\theta\).</li>
+            </ul>
+            <p>Moreover, regularization techniques such as weight decay and dropout are often employed during fine-tuning to prevent overfitting. Regularization adds a penalty term \(R(\theta)\) to the loss function:</p>
+
+            $$\theta^{*} = \arg \min_{\theta} \left[\sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta) + \lambda R(\theta)\right]$$
+
+            <p>where \(\lambda\) is a hyperparameter.</p>
+            <p>By incorporating domain-specific fine-tuning, the model becomes adept at generating text that is not only grammatically correct but also contextually appropriate for the domain. This results in more coherent, relevant, and specialized outputs, enhancing academic and industry applications.</p>
             <h3>Concluding remarks</h3>
-            <p>...</p>
+            <p>Prompts, decoding algorithms, and domain-specific fine-tuning ...</p>
         </div>
     </div>
 

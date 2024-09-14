@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const linkHref = link.href;
 
         // Check if the current location matches the link's href or it's the home page
-        if (linkHref === currentLocation || (currentLocation.endsWith('/') && linkHref.endsWith('/about'))) {
+        if (linkHref === currentLocation || (currentLocation.endsWith('/') && linkHref.endsWith('/index'))) {
             link.classList.add("active");
         }
     });
