@@ -21,7 +21,7 @@
     <header>
         <div class="header-container">
             <div class="header-info">
-                <h1>Valentin Velev</h1>
+                <h1 class="name"><a href="https://valentinsvelev.github.io">Valentin Velev</a></h1>
                 <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
                 <p class="icons">
                     <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
@@ -59,7 +59,6 @@
             <br>
             <div style="display:flex; justify-content:center;"><img src="../images/transformer.PNG" style="width:438px; height:559.5px;" class="images"></div>
             <p style="display:flex; justify-content:center;">Figure 1: The Transformer architecture (Vaswani et al., 2017)</p>
-            <br>
             <h3>Dot-product self-attention</h3>
             <p>The dot-product self-attention mechanism is a curcial component that enables a Transformer model the importance of different elements in a sequence relative to each other. The mechanism relies on three key components: queries \(Q\), keys \(K\), and values \(V\), which are derived from the input sequence. Queries represent what each token is "looking for" in other tokens, keys represent the features of the tokens that will be matched with the queries, and values hold the information that will be aggregated and passed on to the next layer based on the attention weights.</p>
             <p>To obtain these components, each input token undergoes a linear transformation, a process in which the input vector is multiplied by a learned weight matrix. A learned weight matrix is a matrix of parameters that is initialized randomly and then updated during the training process. These parameters are "learned" by the model through backpropagation, where the model adjusts the weights to minimize the error between its predictions and the true outputs.</p>
@@ -266,7 +265,7 @@
 
             <p>where \(i\) is the position of a token and \(T\) is \(10^4\) (cf. Vaswani et al., 2017).</p>
             <h3>Concluding remarks</h3>
-            <p>In this blog post, I outlined the math behind the Transformer and its individual components. It should be noted that this blog post only provides a high-level overview and that most (if not all) of today's Transformer-based models solely use the decoder (the right side in Figure 1). Although state-of-the-art NLG models are based on Vaswani et al. (2017)'s Transformer, most of them have different variants of the components presented in this blog post (pre-normalization, SwiGLU activation function. If you want more information, you can check out Bishop (2006), Deisenroth et al. (2020), Fleuret (2023), Prince (2024), and Bishop & Bishop (2024). Additionally, the blog post by Jay Alammar found <a href="https://jalammar.github.io/illustrated-transformer/">here</a> is great for understanding the linear algebra (mainly matrix multiplication) used by Transformers.</p>
+            <p>In this blog post, I outlined the math behind the Transformer and its individual components. It should be noted that this blog post only provides a high-level overview and that most (if not all) of today's Transformer-based models solely use the decoder (the right side in Figure 1). Although state-of-the-art NLG models are based on Vaswani et al. (2017)'s Transformer, most of them have different variants of the components presented in this blog post (pre-normalization, SwiGLU activation function). If you want more information, you can check out Bishop (2006), Deisenroth et al. (2020), Fleuret (2023), Prince (2024), and Bishop & Bishop (2024). Additionally, the blog post by Jay Alammar found <a href="https://jalammar.github.io/illustrated-transformer/">here</a> is great for understanding the linear algebra used in Transformers.</p>
         </div>
     </div>
 

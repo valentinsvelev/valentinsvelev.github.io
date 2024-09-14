@@ -165,9 +165,9 @@ header {
 }
 
 .nav-menu li a:hover {
-    color: black;                           /* Prevents visited links from turning into another color */
-    background-color: white;                /* Change to a darker color */
-    transform: translateY(3px);               /* Indent effect */
+    color: white !important;
+    background-color: #508c9b;
+    transform: translateY(3px);
     border-radius: 15px;
 }
 
@@ -186,6 +186,7 @@ header {
 /* Links */
 a {
     color: black;
+    display: inline;
 }
 
 a:visited {
@@ -393,6 +394,19 @@ a:active {
     overflow-x: auto;
     white-space: nowrap;
     max-width: 100%;
+}
+
+/**********************************************************************************************************/
+
+.name a {
+    text-decoration: none;
+    color: white;
+    background: transparent;
+}
+
+/* Change the color of the h3 on hover */
+.name a:hover {
+    color: #508c9b; /* Change this color to whatever you want */
 }
 
 /**********************************************************************************************************/
