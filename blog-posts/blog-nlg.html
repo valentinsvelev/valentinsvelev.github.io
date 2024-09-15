@@ -59,7 +59,11 @@
             <p>In language modeling, the likelihood of generating a word \(w_i\) is given by the conditional probability \(P(w_i|w_1, ..., w_{i-1})\). To generate a coherent and relevant sequence of \(t\) words using causal language modeling (CLM), three components are essential: a language model \(M\), a prompt \(X\) and a decoding algorithm.</p>
             <h3>Prompting</h3>
             <p>Prompts are task-specific instructions used for guiding a model's output (Amatriain, 2024; Sahoo et al., 2024). In other words, prompts are the user's input. Thus, the model \(M\) generates the subsequent text by maximizing the probability of each word \(w_i\), conditioned not only on the preceding generated words \(w_1, ..., w_{i-1}\), but also on the prompt \(X = x_1, ..., x_m\). Mathematically, this can be expressed as:</p>
-            <p>$$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$</p>
+
+            <div class="math-container">
+            $$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$
+            </div>
+
             <p>where \(t\) is the length of the generated text sequence (Bengio et al., 2003; Vaswani et al., 2017).</p>
             <p>A way to find effective prompts is through prompt engineering, i.e., the systematic crafting of prompts (Amatriain, 2024; Sahoo et al., 2024). In general, many approaches exist. In this blog post, I only will cover some of the most widely used prompt engineering techniques.</p>
             <p><b>Zero-Shot Prompting</b>, introduced by Radford et al. (2019), involves directly instructing a model to perform a task without providing any examples or demonstrations, meaning the model must leverage its pre-existing knowledge to generate an answer (Sahoo et al., 2024). An example of a zero-shot prompt is:</p>
@@ -102,7 +106,9 @@
             <p>where \(y_t\) is the token with the highest probability at timestep \(t\), \(y_1, ..., y_{t-1}\) are the previously generated tokens and \(x\) is the input. The main problem with this approach is ...</p>
             <p><b>Beam Search</b> maintains multiple candidate sequences (&ldquo;beams&rdquo;), allowing it to explore multiple potential outputs, thereby reducing the risk of missing high probability sequences. At each step \(t\), for each partial sequence \(y_1, ..., y_{t-1}\) in the beam, the algorithm considers the probability distribution over the next possible tokens \(P(y_t|y_1, ..., y_{t-1},x)\), and extends the sequence by selecting the top \(B\) tokens according to:</p>
 
+            <div class="math-container">
             $$\mathcal{L}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
+            </div>
 
             <p>where:</p>
             <ul>
@@ -113,10 +119,12 @@
             <p>Other scoring functions, such as diverse beam search (DBS; <a href="https://openreview.net/forum?id=HJV1zP5xg">Vijayakumar et al., 2017</a>), have been propsed to address the issue of lack of diversity in the generated text.</p>
             <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, is a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the \(k\) highest-probability tokens. Given a distribution \(P(w_i|w_1, ..., w_{i-1})\), its top-\(k\) vocabulary \(V^{(k)} \subset V\) is defined as:</p>
 
+            <div class="math-container">
             $$V^{(k)} = \{w \in V \mid \text{rank}(P(w_i|w_1, ..., w_{i-1})) \le k \}$$
+            </div>
 
             <p>where \(V^{(k)} \subset V\) is the top-\(k\) vocabulary, \(\text{rank}(\cdot)\) represents the rank of the probability of word \(w\), where the rank is determined by sorting the probabilities in descending order, and \(k\) is the pre-defined threshold.</p>
-            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a>is:</p>
+            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
 
             $$V^{(k)} = \underset{V^{(k)} \subset V}{\arg \max} \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1}) \quad \textit{s.t.} \quad |V^{(k)}| = k$$
 
@@ -138,6 +146,12 @@
             $$\sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
 
             <p>where \(V^{(p)} \subset V\) is the top-\(p\) vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
+            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
+
+            <div class="math-container">
+            $$V^{(p)} = \underset{V^{(p)} \subset V}{\arg \min} |V^{(p)}| \quad \text{s.t.} \quad \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
+            </div>
+
             <p>Let \(Z = \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
 
             <div class="math-container">
@@ -214,18 +228,20 @@
             </ul>
             <p>Moreover, regularization techniques such as weight decay and dropout are often employed during fine-tuning to prevent overfitting. Regularization adds a penalty term \(R(\theta)\) to the loss function:</p>
 
+            <div class="math-container">
             $$\theta^{*} = \arg \min_{\theta} \left[\sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta) + \lambda R(\theta)\right]$$
+            </div>
 
             <p>where \(\lambda\) is a hyperparameter.</p>
             <p>By incorporating domain-specific fine-tuning, the model becomes adept at generating text that is not only grammatically correct but also contextually appropriate for the domain. This results in more coherent, relevant, and specialized outputs, enhancing academic and industry applications.</p>
             <h3>Concluding remarks</h3>
-            <p>Prompts, decoding algorithms, and domain-specific fine-tuning ...</p>
+            <p>Prompts, decoding algorithms, and domain-specific fine-tuning are all ways to affect the quality of machine-generated text.</p>
         </div>
     </div>
 
     <footer>
         <div class="footer">
-            <p>Last update: 2024-09-13. Hosted on GitHub Pages.</p>
+            <p>Last update: 2024-09-14. Hosted on GitHub Pages.</p>
             <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
         </div>
     </footer>

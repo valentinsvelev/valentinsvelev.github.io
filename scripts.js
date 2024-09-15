@@ -1,14 +1,15 @@
 
 // Highlight current website
 document.addEventListener("DOMContentLoaded", function() {
-    const currentLocation = window.location.href;
+    // Normalize the current path
+    const currentPath = window.location.pathname.replace(/\/$/, '').replace(/\/index\.\w+$/, '');
     const navLinks = document.querySelectorAll("#nav-menu li a");
 
     navLinks.forEach((link) => {
-        const linkHref = link.href;
+        // Normalize the link's path
+        const linkPath = link.pathname.replace(/\/$/, '').replace(/\/index\.\w+$/, '');
 
-        // Check if the current location matches the link's href or it's the home page
-        if (linkHref === currentLocation || (currentLocation.endsWith('/') && linkHref.endsWith('/index'))) {
+        if (linkPath === currentPath) {
             link.classList.add("active");
         }
     });
