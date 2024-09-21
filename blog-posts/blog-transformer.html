@@ -252,7 +252,7 @@
             $$\tilde{x}_n = x_n + r_n$$
 
             <p>Note that this requires that \(r_n\) and \(x_n\) have the same dimensionality.</p>
-            <p>Bishop & Bishop (2024, p. 372) have stated &ldquo;[a]n ideal positional encoding should provide a unique representation for each position, it should be bounded, it should generalize to longer sequences, and it should have a consistent way to express the number of steps between any two input vectors irrespective of their absolute position because the relative position of tokens is often more important than the absolute position&rdquo;.</p>
+            <p>Bishop & Bishop (2024, p. 372) have stated that &ldquo;[a]n ideal positional encoding should provide a unique representation for each position, it should be bounded, it should generalize to longer sequences, and it should have a consistent way to express the number of steps between any two input vectors irrespective of their absolute position because the relative position of tokens is often more important than the absolute position&rdquo;.</p>
             <p>However, many approaches to positional encoding exist (<a href="https://direct.mit.edu/coli/article/48/3/733/111478/Position-Information-in-Transformers-An-Overview">Dufter et al., 2022</a>). Here I will describe a technique based on sinusoidal functions used in Vaswani et al. (2017). For a given position \(n\) the components of the positional-encoding vector \(r_{ni}\) are given by:</p>
 
             $$
