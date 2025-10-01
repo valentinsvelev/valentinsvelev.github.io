@@ -1,73 +1,24 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV &ndash; Valentin Velev</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="header-info">
-                <h1 class="name"><a href="https://valentinsvelev.github.io">Valentin Velev</a></h1>
-                <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
-                <p class="icons">
-                    <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
-                    <a href="https://github.com/valentinsvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="https://www.kaggle.com/valentinvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-kaggle fa-lg"></i></a>
-                    <a href="https://www.linkedin.com/in/valentinvelev/" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
-                </p>
-            </div>
-            <nav class="header-nav">
-                <!-- Hamburger button -->
-                <button id="hamburger" class="hamburger" aria-label="Toggle Navigation">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </button>
-
-                <!-- Navigation menu -->
-                <ul id="nav-menu" class="nav-menu">
-                    <li><a href="index.html">About Me</a></li>
-                    <li><a href="research.html">Research</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="cv.html">CV</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: CV
+permalink: /cv.html
+---
 
     <div class="title-container">
-        <h2 class="title-text">Curriculum Vitae</h2>
+        <h2 class="title-text">Curriculum Vit&#230;</h2>
     </div>
 
     <div class="wrapper">
         <div class="container">
             <div class="content">
                 <div class="column">
-                    <button class="button button1 downloadBtn" data-href="cv/velev_english_cv.pdf" data-filename="velev_english_cv.pdf">Download English CV</button>
-                    <iframe src="cv/velev_english_cv.pdf" class="pdf"></iframe>
+                    <button class="button button1 downloadBtn" data-href="resources/cv/velev_english_cv.pdf" data-filename="velev_english_cv.pdf">Download English CV</button>
+                    <iframe src="resources/cv/velev_english_cv.pdf" class="pdf"></iframe>
                 </div>
                 <div class="column">
-                    <button class="button button2 downloadBtn" data-href="cv/velev_german_cv.pdf" data-filename="velev_german_cv.pdf">Download German CV</button>
-                    <iframe src="cv/velev_german_cv.pdf" class="pdf"></iframe>
+                    <button class="button button2 downloadBtn" data-href="resources/cv/velev_german_cv.pdf" data-filename="velev_german_cv.pdf">Download German CV</button>
+                    <iframe src="resources/cv/velev_german_cv.pdf" class="pdf"></iframe>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer">
-            <p>Last update: 2024-09-11. Hosted on GitHub Pages.</p>
-            <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="scripts.js"></script>
-</body>
-</html>

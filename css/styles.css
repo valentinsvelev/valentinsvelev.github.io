@@ -1,18 +1,24 @@
 
 /* General */
 html, body {
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
 }
 
+main {
+    flex: 1;
+}
+
 body {
+    display: flex;
     background-color: white;
     font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 p {
@@ -29,29 +35,6 @@ h2 {
     font-size: 26px;
 }
 
-.img-container {
-    width: 425px;   /* The width and height of the circular container */
-    height: 425px;
-    border-radius: 50%;  /* Makes the container circular */
-    overflow: hidden;    /* Ensures parts of the image outside the container are hidden */
-    display: flex;       /* Centers the image within the container */
-    justify-content: center;
-    align-items: center;
-    border: 4px solid #134b70;
-}
-
-.img-container img {
-    width: 100%;          /* Set the image width to fill the container */
-    height: 100%;         /* Set the image height to fill the container */
-    object-fit: cover;    /* Ensures the image fills the container without distortion */
-    object-position: center; /* Center the image within the circular container */
-}
-
-.img-border {
-    border: 5px solid #134b70;
-    border-radius: 50%;
-}
-
 .indented {
     padding-left: 40px;
     text-align: justify;
@@ -62,9 +45,34 @@ h2 {
     text-align: justify;
 }
 
+.two-col-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
 .column {
-    flex: 1;
-    padding: 10px;
+    flex: 1; /* Makes each column take up equal space */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stacks content vertically */
+    justify-content: center; /* Centers vertically */
+    align-items: center;     /* Centers horizontally */
+}
+
+.column.content-left {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.column img {
+    width: 450px;
+    border-radius: 10%;
+    margin-top: 50px;
+}
+
+.column p {
+    justify-content: left;
 }
 
 .container {
@@ -73,6 +81,11 @@ h2 {
     overflow: hidden;
     text-align: justify;
 }
+
+/* .img-me img {
+    width: 50%;
+    height: 50%;
+} */
 
 .container h2 {
     text-align: left;
@@ -109,6 +122,7 @@ h2 {
     text-align: center;
     padding: 20px;
     font-size: 16px;
+    margin-top: auto;
 }
 
 .footer p {
@@ -435,8 +449,8 @@ a:active {
 
 /**********************************************************************************************************/
 
-/* Styles for screens smaller than 768px */
-@media only screen and (max-width: 768px){
+/* Styles for screens smaller than 950px */
+@media only screen and (max-width: 950px){
     .images {
         max-width: 100%;
         height: auto;

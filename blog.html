@@ -1,93 +1,44 @@
+---
+layout: default
+title: Blog
+permalink: /blog.html
+---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog &ndash; Valentin Velev</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="header-info">
-                <h1 class="name"><a href="https://valentinsvelev.github.io">Valentin Velev</a></h1>
-                <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
-                <p class="icons">
-                    <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
-                    <a href="https://github.com/valentinsvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="https://www.kaggle.com/valentinvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-kaggle fa-lg"></i></a>
-                    <a href="https://www.linkedin.com/in/valentinvelev/" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
-                </p>
+<div class="title-container">
+    <h2 class="title-text">Blog</h2>
+</div>
+
+<div class="wrapper">
+    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <div class="blog-content">
+            <div class="blog-post">
+                <a href="{{ site.baseurl }}/blog-posts/blog-transformer.html">
+                    <h3>A brief introduction to (some of) the math behind the Transformer</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: complete</p>
+                    <p>The Transformer archtitecture, introduced in 2017 by Google, is the basis for every state-of-the-art generative AI model today. Understanding (some of) the math behind it is essential for understanding the Transformer itself and today's generative AI models.</p>
+                </a>
             </div>
-            <nav class="header-nav">
-                <!-- Hamburger button -->
-                <button id="hamburger" class="hamburger" aria-label="Toggle Navigation">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </button>
-
-                <!-- Navigation menu -->
-                <ul id="nav-menu" class="nav-menu">
-                    <li><a href="index.html">About Me</a></li>
-                    <li><a href="research.html">Research</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="cv.html">CV</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="title-container">
-        <h2 class="title-text">Blog</h2>
-    </div>
-
-    <div class="wrapper">
-        <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <div class="blog-content">
-                <div class="blog-post">
-                    <a href="blog-posts/blog-transformer.html">
-                        <h3>A brief introduction to (some of) the math behind the Transformer</h3>
-                        <p style="text-align:center; font-weight:bold;">Last update: 2024-09-14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: complete</p>
-                        <p>The Transformer archtitecture, introduced in 2017 by Google, is the basis for every state-of-the-art generative AI model today. Understanding (some of) the math behind it is essential for understanding the Transformer itself and today's generative AI models.</p>
-                    </a>
-                </div>
-                <div class="blog-post">
-                    <a href="blog-posts/blog-nlg.html">
-                        <h3>A brief introduction to natural language generation (NLG)</h3>
-                        <p style="text-align:center; font-weight:bold;">Last update: 2024-09-14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: work in progress</p>
-                        <p>Natural Language Generation (NLG), i.e., the generation of text using language models and their causal language modeling capabilities, is not as black box as people make it out to be. In fact, a user can control many parameters.</p>
-                    </a>
-                </div>
-                <div class='blog-post'>
-                    <a href="blog-posts/blog_sap_business_minutes.html">
-                        <h3>Calculating business minutes from SAP data</h3>
-                        <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: to be started</p>
-                        <p>Determining how many business minutes have passed between two date/time entries from SAP data is curcial for various business insights. In this blog post, I will show how this can be achieved in Python.</p>
-                    </a>
-                </div>
-                <div class='blog-post'>
-                    <a href="blog-posts/blog-gpt2-numpy.html">
-                        <h3>Building GPT-2 from scratch using NumPy</h3>
-                        <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: to be started</p>
-                        <p>GPT-2 is one of the most popular open-source language model, but how does it work and can you build it yourself from scratch in Python using NumPy?</p>
-                    </a>
-                </div>
+            <div class="blog-post">
+                <a href="{{ site.baseurl }}/blog-posts/blog-nlg.html">
+                    <h3>A brief introduction to natural language generation (NLG)</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: work in progress</p>
+                    <p>Natural Language Generation (NLG), i.e., the generation of text using language models and their causal language modeling capabilities, is not as black box as people make it out to be. In fact, a user can control many parameters.</p>
+                </a>
+            </div>
+            <div class='blog-post'>
+                <a href="{{ site.baseurl }}/blog-posts/blog-sap.html">
+                    <h3>Calculating business minutes from SAP data</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: to be started</p>
+                    <p>Determining how many business minutes have passed between two date/time entries from SAP data is curcial for various business insights. In this blog post, I will show how this can be achieved in Python.</p>
+                </a>
+            </div>
+            <div class='blog-post'>
+                <a href="{{ site.baseurl }}/blog-posts/blog-gpt2.html">
+                    <h3>Building GPT-2 from scratch using NumPy</h3>
+                    <p style="text-align:center; font-weight:bold;">Last update: 2024-09-02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: to be started</p>
+                    <p>GPT-2 is one of the most popular open-source language model, but how does it work and can you build it yourself from scratch in Python using NumPy?</p>
+                </a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer">
-            <p>Last update: 2024-09-11. Hosted on GitHub Pages.</p>
-            <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="scripts.js"></script>
-</body>
-</html>
+</div>

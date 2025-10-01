@@ -1,252 +1,195 @@
+---
+layout: default
+title: NLG
+permalink: /blog-posts/blog-nlg.html
+---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NLG (Blog) &ndash; Valentin Velev</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-    <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-            "HTML-CSS": { availableFonts: ["TeX"], scale: 100 },
-            messageStyle: "none"
-        });
-    </script>
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="header-info">
-                <h1 class="name"><a href="https://valentinsvelev.github.io">Valentin Velev</a></h1>
-                <p>MSc Data Science Student | Researcher | Aspiring Data Scientist</p>
-                <p class="icons">
-                    <a href="mailto:valentin.velev@uni-konstanz.de" target="_blank" class="icon-link-header" style="padding-top:25px; padding-right: 10px;"><i class="fas fa-envelope fa-lg"></i></a>
-                    <a href="https://github.com/valentinsvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="https://www.kaggle.com/valentinvelev" target="_blank" class="icon-link-header" style="padding-right: 10px;"><i class="fab fa-kaggle fa-lg"></i></a>
-                    <a href="https://www.linkedin.com/in/valentinvelev/" target="_blank" class="icon-link-header"><i class="fab fa-linkedin fa-lg"></i></a>
-                </p>
-            </div>
-            <nav class="header-nav">
-                <!-- Hamburger button -->
-                <button id="hamburger" class="hamburger" aria-label="Toggle Navigation">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </button>
+<div class="title-container">
+    <h2 class="title-text">A Brief Introduction to Natural Language Generation</h2>
+</div>
 
-                <!-- Navigation menu -->
-                <ul id="nav-menu" class="nav-menu">
-                    <li><a href="../index.html">About Me</a></li>
-                    <li><a href="../research.html">Research</a></li>
-                    <li><a href="../projects.html">Projects</a></li>
-                    <li><a href="../blog.html">Blog</a></li>
-                    <li><a href="../cv.html">CV</a></li>
-                </ul>
-            </nav>
+<div class="wrapper">
+    <div class="container">
+        <p>In this blog post, I will dive into some of the math foundations of natural language generation (NLG).</p>
+        <p>In language modeling, the likelihood of generating a word \(w_i\) is given by the conditional probability \(P(w_i|w_1, ..., w_{i-1})\). To generate a coherent and relevant sequence of \(t\) words using causal language modeling (CLM), three components are essential: a language model \(M\), a prompt \(X\) and a decoding algorithm.</p>
+        <h3>Prompting</h3>
+        <p>Prompts are task-specific instructions used for guiding a model's output (Amatriain, 2024; Sahoo et al., 2024). In other words, prompts are the user's input. Thus, the model \(M\) generates the subsequent text by maximizing the probability of each word \(w_i\), conditioned not only on the preceding generated words \(w_1, ..., w_{i-1}\), but also on the prompt \(X = x_1, ..., x_m\). Mathematically, this can be expressed as:</p>
+
+        <div class="math-container">
+        $$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$
         </div>
-    </header>
 
-    <div class="title-container">
-        <h2 class="title-text">A Brief Introduction to Natural Language Generation</h2>
-    </div>
+        <p>where \(t\) is the length of the generated text sequence (Bengio et al., 2003; Vaswani et al., 2017).</p>
+        <p>A way to find effective prompts is through prompt engineering, i.e., the systematic crafting of prompts (Amatriain, 2024; Sahoo et al., 2024). In general, many approaches exist. In this blog post, I only will cover some of the most widely used prompt engineering techniques.</p>
+        <p><b>Zero-Shot Prompting</b>, introduced by Radford et al. (2019), involves directly instructing a model to perform a task without providing any examples or demonstrations, meaning the model must leverage its pre-existing knowledge to generate an answer (Sahoo et al., 2024). An example of a zero-shot prompt is:</p>
 
-    <div class="wrapper">
-        <div class="container">
-            <p>In this blog post, I will dive into some of the math foundations of natural language generation (NLG).</p>
-            <p>In language modeling, the likelihood of generating a word \(w_i\) is given by the conditional probability \(P(w_i|w_1, ..., w_{i-1})\). To generate a coherent and relevant sequence of \(t\) words using causal language modeling (CLM), three components are essential: a language model \(M\), a prompt \(X\) and a decoding algorithm.</p>
-            <h3>Prompting</h3>
-            <p>Prompts are task-specific instructions used for guiding a model's output (Amatriain, 2024; Sahoo et al., 2024). In other words, prompts are the user's input. Thus, the model \(M\) generates the subsequent text by maximizing the probability of each word \(w_i\), conditioned not only on the preceding generated words \(w_1, ..., w_{i-1}\), but also on the prompt \(X = x_1, ..., x_m\). Mathematically, this can be expressed as:</p>
+            <p class="indented"><em>&ldquo;Classify the text into neutral, negative or positive.</em></p>
+            <p class="indented"><em>Text: I think the vacation is okay.</em></p>
+            <p class="indented"><em>Sentiment:&rdquo;</em></p>
 
-            <div class="math-container">
-            $$P(w_1, ..., w_t|X) = P(w_1|X) \cdot \prod^t_{i=2} P(w_i|X, w_1, ..., w_{i-1}),$$
-            </div>
+        <p>Domain-specific fine-tuning or &ldquo;instruction tuning&rdquo; has been shown to improve the output when using zero-shot prompts (Wei et al., 2022).</p>
+        <p><b>Few-Shot Prompting</b>, introduced by Brown et al. (2020), comprises a prompt that contains an instruction and a few examples to induce a better understanding of the task and generate a better response (Brown et al., 2020; Sahoo et al., 2024). It is called “few-shot” because the model is given a small number of examples (“shots”). An example of a few-shot prompt is:</p>
 
-            <p>where \(t\) is the length of the generated text sequence (Bengio et al., 2003; Vaswani et al., 2017).</p>
-            <p>A way to find effective prompts is through prompt engineering, i.e., the systematic crafting of prompts (Amatriain, 2024; Sahoo et al., 2024). In general, many approaches exist. In this blog post, I only will cover some of the most widely used prompt engineering techniques.</p>
-            <p><b>Zero-Shot Prompting</b>, introduced by Radford et al. (2019), involves directly instructing a model to perform a task without providing any examples or demonstrations, meaning the model must leverage its pre-existing knowledge to generate an answer (Sahoo et al., 2024). An example of a zero-shot prompt is:</p>
+            <p class="indented"><em>&ldquo;This is awesome! // Negative</em></p>
+            <p class="indented"><em>This is bad! // Positive</em></p>
+            <p class="indented"><em>Wow that movie was rad! // Positive</em></p>
+            <p class="indented"><em>What a horrible show! //&rdquo;</em></p>
 
-                <p class="indented"><em>&ldquo;Classify the text into neutral, negative or positive.</em></p>
-                <p class="indented"><em>Text: I think the vacation is okay.</em></p>
-                <p class="indented"><em>Sentiment:&rdquo;</em></p>
+        <p>Note that few-shot prompting is most effective when model size is large enough (Kaplan et al., 2020).</p>
+        <p><b>Chain-of-Thought (CoT) Prompting</b>, introduced by Wei et al. (2022), is an approach that enables complex reasoning capabilities through intermediate reasoning steps, i.e., by providing a step-by-step explanation or reasoning process that led the model to its final answer. This approach helps language models better handle tasks requiring multi-step reasoning, such as mathematical problem solving, logical deduction, or comprehension tasks. An example of a (one-shot) CoT prompt is:</p>
 
-            <p>Domain-specific fine-tuning or &ldquo;instruction tuning&rdquo; has been shown to improve the output when using zero-shot prompts (Wei et al., 2022).</p>
-            <p><b>Few-Shot Prompting</b>, introduced by Brown et al. (2020), comprises a prompt that contains an instruction and a few examples to induce a better understanding of the task and generate a better response (Brown et al., 2020; Sahoo et al., 2024). It is called “few-shot” because the model is given a small number of examples (“shots”). An example of a few-shot prompt is:</p>
+            <p class="indented"><em>&ldquo;Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?</em></p>
+            <p class="indented"><em>A: Roger started with 5 balls. 2 cans of 3 tennis balls each is 6 tennis balls. 5 + 6 = 11. The answer is 11.</em></p>
+            <p class="indented"><em>Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many apples do they have?&rdquo;</em></p>
 
-                <p class="indented"><em>&ldquo;This is awesome! // Negative</em></p>
-                <p class="indented"><em>This is bad! // Positive</em></p>
-                <p class="indented"><em>Wow that movie was rad! // Positive</em></p>
-                <p class="indented"><em>What a horrible show! //&rdquo;</em></p>
+        <p>Note that CoT prompting can be combined with zero-shot or few-shot prompting (cf. Kojima et al., 2022; Wang et al., 2023). Furthermore, as with few-shot prompting, when using CoT, the model must be large enough to be able to reason (Wei et al., 2022).</p>
+        <p><b>Tree of Throughts (ToT) Prompting</b>, introduced by Long (2023) and Yao et al. (2023), is a technique the model maintains a tree of thoughts, where thoughts serve as intermediate steps toward solving a problem, encouraging the model to self-evaluate. The tree of thoughts is then traversed using breadth-first search (BFS) or depth-first search (DFS). An example of a single ToT prompt is:</p>
 
-            <p>Note that few-shot prompting is most effective when model size is large enough (Kaplan et al., 2020).</p>
-            <p><b>Chain-of-Thought (CoT) Prompting</b>, introduced by Wei et al. (2022), is an approach that enables complex reasoning capabilities through intermediate reasoning steps, i.e., by providing a step-by-step explanation or reasoning process that led the model to its final answer. This approach helps language models better handle tasks requiring multi-step reasoning, such as mathematical problem solving, logical deduction, or comprehension tasks. An example of a (one-shot) CoT prompt is:</p>
+            <p class="indented"><em>&ldquo;Imagine three different experts are answering this question.</em></p>
+            <p class="indented"><em>All experts will write down 1 step of their thinking,</em></p>
+            <p class="indented"><em>then share it with the group.</em></p>
+            <p class="indented"><em>Then all experts will go on to the next step, etc.</em></p>
+            <p class="indented"><em>If any expert realises they're wrong at any point then they leave.</em></p>
+            <p class="indented"><em>The question is...&rdquo;</em></p>
 
-                <p class="indented"><em>&ldquo;Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?</em></p>
-                <p class="indented"><em>A: Roger started with 5 balls. 2 cans of 3 tennis balls each is 6 tennis balls. 5 + 6 = 11. The answer is 11.</em></p>
-                <p class="indented"><em>Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many apples do they have?&rdquo;</em></p>
+        <h3>Decoding Algorithms</h3>
+        <p>Decoding algorithms are then used to translate the probabilities of a sentence \(s\) with \(t\) words \(w_1, ..., w_{i-1}\) into coherent and intelligible text (natural language). The choice of a decoding algorithm has been shown to significantly affect the quality and diversity of the generated text (Ippolito et al., 2019; Wiher et al., 2022; Zhang et al., 2021). In this blog post, I will cover several common decoding methods.</p>
+        <p><b>Greedy Search</b> is the simplest decoding method. It selects the token with the highest probability as its next word at each timestep, aiming to generate the most likely sequence. Mathematically, this can be expressed as:</p>
 
-            <p>Note that CoT prompting can be combined with zero-shot or few-shot prompting (cf. Kojima et al., 2022; Wang et al., 2023). Furthermore, as with few-shot prompting, when using CoT, the model must be large enough to be able to reason (Wei et al., 2022).</p>
-            <p><b>Tree of Throughts (ToT) Prompting</b>, introduced by Long (2023) and Yao et al. (2023), is a technique the model maintains a tree of thoughts, where thoughts serve as intermediate steps toward solving a problem, encouraging the model to self-evaluate. The tree of thoughts is then traversed using breadth-first search (BFS) or depth-first search (DFS). An example of a single ToT prompt is:</p>
+        $$y_t = \arg \max_{y} P(y|y_1, ..., y_{t-1}, x)$$
 
-                <p class="indented"><em>&ldquo;Imagine three different experts are answering this question.</em></p>
-                <p class="indented"><em>All experts will write down 1 step of their thinking,</em></p>
-                <p class="indented"><em>then share it with the group.</em></p>
-                <p class="indented"><em>Then all experts will go on to the next step, etc.</em></p>
-                <p class="indented"><em>If any expert realises they're wrong at any point then they leave.</em></p>
-                <p class="indented"><em>The question is...&rdquo;</em></p>
+        <p>where \(y_t\) is the token with the highest probability at timestep \(t\), \(y_1, ..., y_{t-1}\) are the previously generated tokens and \(x\) is the input. The main problem with this approach is ...</p>
+        <p><b>Beam Search</b> maintains multiple candidate sequences (&ldquo;beams&rdquo;), allowing it to explore multiple potential outputs, thereby reducing the risk of missing high probability sequences. At each step \(t\), for each partial sequence \(y_1, ..., y_{t-1}\) in the beam, the algorithm considers the probability distribution over the next possible tokens \(P(y_t|y_1, ..., y_{t-1},x)\), and extends the sequence by selecting the top \(B\) tokens according to:</p>
 
-            <h3>Decoding Algorithms</h3>
-            <p>Decoding algorithms are then used to translate the probabilities of a sentence \(s\) with \(t\) words \(w_1, ..., w_{i-1}\) into coherent and intelligible text (natural language). The choice of a decoding algorithm has been shown to significantly affect the quality and diversity of the generated text (Ippolito et al., 2019; Wiher et al., 2022; Zhang et al., 2021). In this blog post, I will cover several common decoding methods.</p>
-            <p><b>Greedy Search</b> is the simplest decoding method. It selects the token with the highest probability as its next word at each timestep, aiming to generate the most likely sequence. Mathematically, this can be expressed as:</p>
+        <div class="math-container">
+        $$\mathcal{L}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
+        </div>
 
-            $$y_t = \arg \max_{y} P(y|y_1, ..., y_{t-1}, x)$$
+        <p>where:</p>
+        <ul>
+            <li>\(y_1, ..., y_t\) is the candidate sequence up to step \(t\),</li>
+            <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\),</li>
+            <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
+        </ul>
+        <p>Other scoring functions, such as diverse beam search (DBS; <a href="https://openreview.net/forum?id=HJV1zP5xg">Vijayakumar et al., 2017</a>), have been propsed to address the issue of lack of diversity in the generated text.</p>
+        <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, is a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the \(k\) highest-probability tokens. Given a distribution \(P(w_i|w_1, ..., w_{i-1})\), its top-\(k\) vocabulary \(V^{(k)} \subset V\) is defined as:</p>
 
-            <p>where \(y_t\) is the token with the highest probability at timestep \(t\), \(y_1, ..., y_{t-1}\) are the previously generated tokens and \(x\) is the input. The main problem with this approach is ...</p>
-            <p><b>Beam Search</b> maintains multiple candidate sequences (&ldquo;beams&rdquo;), allowing it to explore multiple potential outputs, thereby reducing the risk of missing high probability sequences. At each step \(t\), for each partial sequence \(y_1, ..., y_{t-1}\) in the beam, the algorithm considers the probability distribution over the next possible tokens \(P(y_t|y_1, ..., y_{t-1},x)\), and extends the sequence by selecting the top \(B\) tokens according to:</p>
+        <div class="math-container">
+        $$V^{(k)} = \{w \in V \mid \text{rank}(P(w_i|w_1, ..., w_{i-1})) \le k \}$$
+        </div>
 
-            <div class="math-container">
-            $$\mathcal{L}(y_1, ..., y_t) = \sum^t_{k=1} \log P(y_k|y_1, ..., y_{k-1}, x)$$
-            </div>
+        <p>where \(V^{(k)} \subset V\) is the top-\(k\) vocabulary, \(\text{rank}(\cdot)\) represents the rank of the probability of word \(w\), where the rank is determined by sorting the probabilities in descending order, and \(k\) is the pre-defined threshold.</p>
+        <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
 
-            <p>where:</p>
-            <ul>
-                <li>\(y_1, ..., y_t\) is the candidate sequence up to step \(t\),</li>
-                <li>\(P(y_k|y_1, ..., y_{k-1})\) is the probability of the \(k\)-th token in the sequence, conditioned on the previous tokens \(y_1, ..., y_{k-1}\) and the input \(x\),</li>
-                <li>\(\log P(y_k|y_1, ..., y_{k-1})\) is used instead of \(P(y_k|y_1, ..., y_{k-1})\) to avoid numerical underflow and stabilize the calculation.</li>
-            </ul>
-            <p>Other scoring functions, such as diverse beam search (DBS; <a href="https://openreview.net/forum?id=HJV1zP5xg">Vijayakumar et al., 2017</a>), have been propsed to address the issue of lack of diversity in the generated text.</p>
-            <p><b>Top-k sampling</b>, introduced by <a href="https://arxiv.org/abs/1805.04833">Fan et al. (2018)</a>, is a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the \(k\) highest-probability tokens. Given a distribution \(P(w_i|w_1, ..., w_{i-1})\), its top-\(k\) vocabulary \(V^{(k)} \subset V\) is defined as:</p>
+        $$V^{(k)} = \underset{V^{(k)} \subset V}{\arg \max} \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1}) \quad \textit{s.t.} \quad |V^{(k)}| = k$$
 
-            <div class="math-container">
-            $$V^{(k)} = \{w \in V \mid \text{rank}(P(w_i|w_1, ..., w_{i-1})) \le k \}$$
-            </div>
+        <p>Let \(Z = \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
 
-            <p>where \(V^{(k)} \subset V\) is the top-\(k\) vocabulary, \(\text{rank}(\cdot)\) represents the rank of the probability of word \(w\), where the rank is determined by sorting the probabilities in descending order, and \(k\) is the pre-defined threshold.</p>
-            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
-
-            $$V^{(k)} = \underset{V^{(k)} \subset V}{\arg \max} \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1}) \quad \textit{s.t.} \quad |V^{(k)}| = k$$
-
-            <p>Let \(Z = \sum_{w \in V^{(k)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
-
-            <div class="math-container">
-                $$
-                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
-                \begin{array}{ll}
-                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(k)}, \\
-                    0 & \text{otherwise}.
-                \end{array} \right.
-                $$
-            </div>
-
-            <p>The limitation of top-\(k\) sampling is that having a fixed vocabulary size \(k\)across the whole text generation process can increase the risk of generating generic and even incoherent text (<a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. 2020</a>).</p>
-            <p><b>Nucleus sampling</b> (also known as top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is also a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold \(p\). Mathematically this can be expressed as:</p>
-
-            $$\sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
-
-            <p>where \(V^{(p)} \subset V\) is the top-\(p\) vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
-            <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
-
-            <div class="math-container">
-            $$V^{(p)} = \underset{V^{(p)} \subset V}{\arg \min} |V^{(p)}| \quad \text{s.t.} \quad \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
-            </div>
-
-            <p>Let \(Z = \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
-
-            <div class="math-container">
-                $$
-                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
-                \begin{array}{ll}
-                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(p)}, \\
-                    0 & \text{otherwise}.
-                \end{array} \right.
-                $$
-            </div>
-
-            <p>As with top-\(k\), the probabilites of all words that are <i>not</i> in the top-\(p\) vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
-            <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, is a method that modifies the probability distribution before sampling, i.e., before generating each word, controlling the level of &ldquo;creativity&rdquo; of the model. Mathematically, temperature \(t\) is a positive scalar applied to the logits \(z\) (raw outputs of the model):</p>
-
-            $$P^{*}(w_i|w_1, ..., w_{i-1}) = \frac{\exp(z_i/t)}{\sum_j \exp(z_j/t)}$$
-
-            <p>where \(t \in [0,1)\), where \(t=1\) would preserve the original probability distribution. Temperature is often combined with techniques like top-\(k\) or top-\(p\) sampling to achieve a balance between diversity and coherence in the generated text.</p>
-            <p>\(\boldsymbol{\eta}\)<b>-sampling</b> (pronounced eta-sampling), introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, is an entropy-based method that improves on top-\(p\) sampling by introducing a dynamic threshold. Mathematically, \(\eta\)-sampling can be expressed as obtaining the truncation set \(\mathcal{C}(y_{\lt t})\) at each timestep:</p>
-
-            $$\mathcal{C}(y_{\lt t}) = \{y \in V \mid P(y|y_{\lt t}) \gt \eta\}$$
-
-            <p>where \(\eta = \min(\epsilon, \sqrt{\epsilon} \exp(-H(P(y|y_{\lt t}))))\), \(H(\cdot)\) denotes the entropy, and \(\epsilon = 0.0009\) (cf. Hewitt et al., 2022).</p>
-            Let \(Z = \sum_{w \in \mathcal{C}(y_{\lt t})} P(w_i|w_1, ..., w_{i-1})\). The next word is then once again sampled from a re-scaled version of the previous probability distribution:
-
-            <div class="math-container">
-                $$
-                P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
-                \begin{array}{ll}
-                    P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in \mathcal{C}(y_{\lt t}), \\
-                    0 & \text{otherwise}.
-                \end{array} \right.
-                $$
-            </div>
-
-            <p>As with top-\(k\) and top-\(p\) sampling, the probabilites of all words that are <i>not</i> in the truncation set at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
-            <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a>, is also an entropy-based method that uses conditional entropy and (locally) typical sets, i.e., sets of words that fall within a specific range of the conditional entropy at each step of the text generation process. Mathematically, locally typical sampling can be expressed as a subset optimization problem to define the truncation set \(\mathcal{C}(y_{\lt t})\):</p>
-
-            <div class="math-container">
+        <div class="math-container">
             $$
-            \min_{\mathcal{C}(y_{\lt t}) \in \mathcal{P}(V)} \sum_{y \in \mathcal{C}(y_{\lt t})} \left| H(Y_t | Y_{\lt t} = y_{\lt t}) + \log P(y | y_{\lt t}) \right| \quad
-
-            \textit{s.t.} \quad \sum_{y \in \mathcal{C}(y_{\lt t})} P(y | y_{\lt t}) \geq \tau
+            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+            \begin{array}{ll}
+                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(k)}, \\
+                0 & \text{otherwise}.
+            \end{array} \right.
             $$
-            </div>
-
-            <p>where:</p>
-            <ul>
-                <li>\(\mathcal{C}(y_{\lt t})\) is the truncation set, i.e., the set of words considered at timestep \(t\). It is a subset of the vocabulary, where \(\mathcal{P}(V)\) denotes the power set of \(V\), that is, all possible subsets of the vocabulary.</li>
-                <li>\(H(Y_t | Y_{\lt t} = y_{\lt t})\) is the conditional entropy of the next word \(Y_t\), given the preceeding words \(Y_{\lt t}\).</li>
-                <li>\(\log P(y | y_{\lt t})\) is the log-probability of selecting a word \(y\), given the prior context \(y_{\lt t}\).</li>
-            </ul>
-            <p>The aim of locally typical sampling is to minimize the absolute difference between the conditional entropy and the log-probability for each word in the truncation set.</p>
-            <h3>Domain-specific fine-tuning</h3>
-            <p>Domain-specific fine-tuning, also known as &ldquo;instruction tuning&rdquo; (Wei et al., 2022), is a technique in NLG, where a pre-trained models' parameters are adapted to perform optimally within a specific field or subject area. It involves further training a pre-trained model on a domain-specific dataset \(D\) and, in doing so, adjust the model's parameters \(\theta\) to better capture the nuances and intricacies of the target domain.</p>
-            <p>Mathematically, domain-specific fine-tuning can be expressed as a optimization problem to find the set of parameters \(\theta^{*}\) that minimize the loss function \(L(\theta)\):</p>
-
-            $$\theta^{*} = \arg \min_{\theta} \sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta)$$
-
-            <p>where:</p>
-            <ul>
-                <li>\(x_i\) is the input,</li>
-                <li>\(y_i\) is the output, and</li>
-                <li>\(P(y_i|x_i,\theta)\) is the probability that the model assigns to the target output given the input context, parameterized by \(\theta\).</li>
-            </ul>
-            <p>The optimization is typically performed using gradient-based methods like stochastic gradient descent (SGD) or its variants (e.g., Adam optimizer). The parameters are updated iteratively:</p>
-
-            $$\theta \leftarrow \theta - \eta \nabla_{\theta}L(\theta)$$
-
-            <p>where:</p>
-            <ul>
-                <li>\(\eta\) is the learning rate and</li>
-                <li>\(\nabla_{\theta}L(\theta)\) is the gradient of the loss function with respect to the parameters \(\theta\).</li>
-            </ul>
-            <p>Moreover, regularization techniques such as weight decay and dropout are often employed during fine-tuning to prevent overfitting. Regularization adds a penalty term \(R(\theta)\) to the loss function:</p>
-
-            <div class="math-container">
-            $$\theta^{*} = \arg \min_{\theta} \left[\sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta) + \lambda R(\theta)\right]$$
-            </div>
-
-            <p>where \(\lambda\) is a hyperparameter.</p>
-            <p>By incorporating domain-specific fine-tuning, the model becomes adept at generating text that is not only grammatically correct but also contextually appropriate for the domain. This results in more coherent, relevant, and specialized outputs, enhancing academic and industry applications.</p>
-            <h3>Concluding remarks</h3>
-            <p>Prompts, decoding algorithms, and domain-specific fine-tuning are all ways to affect the quality of machine-generated text.</p>
         </div>
+
+        <p>The limitation of top-\(k\) sampling is that having a fixed vocabulary size \(k\)across the whole text generation process can increase the risk of generating generic and even incoherent text (<a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. 2020</a>).</p>
+        <p><b>Nucleus sampling</b> (also known as top-p sampling), introduced by <a href="https://openreview.net/forum?id=rygGQyrFvH">Holtzman et al. (2020)</a>, is also a truncation-based stochastic method, where, at each step of the text generation, the algorithm selects the next token from the smallest set of tokens, whose cumulative probability meets or exceeds a threshold \(p\). Mathematically this can be expressed as:</p>
+
+        $$\sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
+
+        <p>where \(V^{(p)} \subset V\) is the top-\(p\) vocabulary and \(p \in [0,1]\) is the pre-determined threshold. This threshold is usually set at \(0.7 \le p \le 0.95\), as this generates consistent good quality text (DeLucia et al., 2021; Holtzman et al., 2020).</p>
+        <p>A more formal formulation given by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a> and <a href="https://aclanthology.org/2023.acl-long.80/">Meister et al. (2023b)</a> is:</p>
+
+        <div class="math-container">
+        $$V^{(p)} = \underset{V^{(p)} \subset V}{\arg \min} |V^{(p)}| \quad \text{s.t.} \quad \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1}) \ge p$$
+        </div>
+
+        <p>Let \(Z = \sum_{w \in V^{(p)}} P(w_i|w_1, ..., w_{i-1})\). The next word is then again sampled from a re-scaled version of the previous probability distribution:</p>
+
+        <div class="math-container">
+            $$
+            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+            \begin{array}{ll}
+                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in V^{(p)}, \\
+                0 & \text{otherwise}.
+            \end{array} \right.
+            $$
+        </div>
+
+        <p>As with top-\(k\), the probabilites of all words that are <i>not</i> in the top-\(p\) vocabulary at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
+        <p><b>Temperature</b>, introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0364021385800124">Ackley et al. (1985)</a>, is a method that modifies the probability distribution before sampling, i.e., before generating each word, controlling the level of &ldquo;creativity&rdquo; of the model. Mathematically, temperature \(t\) is a positive scalar applied to the logits \(z\) (raw outputs of the model):</p>
+
+        $$P^{*}(w_i|w_1, ..., w_{i-1}) = \frac{\exp(z_i/t)}{\sum_j \exp(z_j/t)}$$
+
+        <p>where \(t \in [0,1)\), where \(t=1\) would preserve the original probability distribution. Temperature is often combined with techniques like top-\(k\) or top-\(p\) sampling to achieve a balance between diversity and coherence in the generated text.</p>
+        <p>\(\boldsymbol{\eta}\)<b>-sampling</b> (pronounced eta-sampling), introduced by <a href="https://aclanthology.org/2022.findings-emnlp.249/">Hewitt et al. (2022)</a>, is an entropy-based method that improves on top-\(p\) sampling by introducing a dynamic threshold. Mathematically, \(\eta\)-sampling can be expressed as obtaining the truncation set \(\mathcal{C}(y_{\lt t})\) at each timestep:</p>
+
+        $$\mathcal{C}(y_{\lt t}) = \{y \in V \mid P(y|y_{\lt t}) \gt \eta\}$$
+
+        <p>where \(\eta = \min(\epsilon, \sqrt{\epsilon} \exp(-H(P(y|y_{\lt t}))))\), \(H(\cdot)\) denotes the entropy, and \(\epsilon = 0.0009\) (cf. Hewitt et al., 2022).</p>
+        Let \(Z = \sum_{w \in \mathcal{C}(y_{\lt t})} P(w_i|w_1, ..., w_{i-1})\). The next word is then once again sampled from a re-scaled version of the previous probability distribution:
+
+        <div class="math-container">
+            $$
+            P^{*}(w_i|w_1, ..., w_{i-1}) = \left\{
+            \begin{array}{ll}
+                P(w_i|w_1, ..., w_{i-1})/Z & \text{if } w_i \in \mathcal{C}(y_{\lt t}), \\
+                0 & \text{otherwise}.
+            \end{array} \right.
+            $$
+        </div>
+
+        <p>As with top-\(k\) and top-\(p\) sampling, the probabilites of all words that are <i>not</i> in the truncation set at a given time are set to 0 and \(P^{*}\) vary across the text generation process.</p>
+        <p><b>Locally typical sampling</b>, introduced by <a href="https://doi.org/10.1162/tacl_a_00536">Meister et al. (2023a)</a>, is also an entropy-based method that uses conditional entropy and (locally) typical sets, i.e., sets of words that fall within a specific range of the conditional entropy at each step of the text generation process. Mathematically, locally typical sampling can be expressed as a subset optimization problem to define the truncation set \(\mathcal{C}(y_{\lt t})\):</p>
+
+        <div class="math-container">
+        $$
+        \min_{\mathcal{C}(y_{\lt t}) \in \mathcal{P}(V)} \sum_{y \in \mathcal{C}(y_{\lt t})} \left| H(Y_t | Y_{\lt t} = y_{\lt t}) + \log P(y | y_{\lt t}) \right| \quad
+
+        \textit{s.t.} \quad \sum_{y \in \mathcal{C}(y_{\lt t})} P(y | y_{\lt t}) \geq \tau
+        $$
+        </div>
+
+        <p>where:</p>
+        <ul>
+            <li>\(\mathcal{C}(y_{\lt t})\) is the truncation set, i.e., the set of words considered at timestep \(t\). It is a subset of the vocabulary, where \(\mathcal{P}(V)\) denotes the power set of \(V\), that is, all possible subsets of the vocabulary.</li>
+            <li>\(H(Y_t | Y_{\lt t} = y_{\lt t})\) is the conditional entropy of the next word \(Y_t\), given the preceeding words \(Y_{\lt t}\).</li>
+            <li>\(\log P(y | y_{\lt t})\) is the log-probability of selecting a word \(y\), given the prior context \(y_{\lt t}\).</li>
+        </ul>
+        <p>The aim of locally typical sampling is to minimize the absolute difference between the conditional entropy and the log-probability for each word in the truncation set.</p>
+        <h3>Domain-specific fine-tuning</h3>
+        <p>Domain-specific fine-tuning, also known as &ldquo;instruction tuning&rdquo; (Wei et al., 2022), is a technique in NLG, where a pre-trained models' parameters are adapted to perform optimally within a specific field or subject area. It involves further training a pre-trained model on a domain-specific dataset \(D\) and, in doing so, adjust the model's parameters \(\theta\) to better capture the nuances and intricacies of the target domain.</p>
+        <p>Mathematically, domain-specific fine-tuning can be expressed as a optimization problem to find the set of parameters \(\theta^{*}\) that minimize the loss function \(L(\theta)\):</p>
+
+        $$\theta^{*} = \arg \min_{\theta} \sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta)$$
+
+        <p>where:</p>
+        <ul>
+            <li>\(x_i\) is the input,</li>
+            <li>\(y_i\) is the output, and</li>
+            <li>\(P(y_i|x_i,\theta)\) is the probability that the model assigns to the target output given the input context, parameterized by \(\theta\).</li>
+        </ul>
+        <p>The optimization is typically performed using gradient-based methods like stochastic gradient descent (SGD) or its variants (e.g., Adam optimizer). The parameters are updated iteratively:</p>
+
+        $$\theta \leftarrow \theta - \eta \nabla_{\theta}L(\theta)$$
+
+        <p>where:</p>
+        <ul>
+            <li>\(\eta\) is the learning rate and</li>
+            <li>\(\nabla_{\theta}L(\theta)\) is the gradient of the loss function with respect to the parameters \(\theta\).</li>
+        </ul>
+        <p>Moreover, regularization techniques such as weight decay and dropout are often employed during fine-tuning to prevent overfitting. Regularization adds a penalty term \(R(\theta)\) to the loss function:</p>
+
+        <div class="math-container">
+        $$\theta^{*} = \arg \min_{\theta} \left[\sum_{(x_i,y_i) \in D} - \log P(y_i|x_i,\theta) + \lambda R(\theta)\right]$$
+        </div>
+
+        <p>where \(\lambda\) is a hyperparameter.</p>
+        <p>By incorporating domain-specific fine-tuning, the model becomes adept at generating text that is not only grammatically correct but also contextually appropriate for the domain. This results in more coherent, relevant, and specialized outputs, enhancing academic and industry applications.</p>
+        <h3>Concluding remarks</h3>
+        <p>Prompts, decoding algorithms, and domain-specific fine-tuning are all ways to affect the quality of machine-generated text.</p>
     </div>
-
-    <footer>
-        <div class="footer">
-            <p>Last update: 2024-09-14. Hosted on GitHub Pages.</p>
-            <p>&copy; 2024 Valentin Velev. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../scripts.js"></script>
-</body>
-</html>
+</div>
