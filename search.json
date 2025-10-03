@@ -1,0 +1,23 @@
+---
+layout: none
+permalink: /search.json
+---
+
+[
+{% assign docs = site.posts | concat: site.pages %}
+{% assign first = true %}
+{% for page in docs %}
+  {% unless page.search == false or page.title == nil %}
+    {% unless first %},{% endunless %}
+    {% assign first = false %}
+    {
+      "title": {{ page.title | jsonify }},
+      "url": {{ page.url | relative_url | jsonify }},
+      "date": {{ page.date | date_to_xmlschema | jsonify }},
+      "content": {{ page.content | strip_html | normalize_whitespace | truncatewords: 300 | jsonify }},
+      "categories": {{ page.categories | jsonify }},
+      "tags": {{ page.tags | jsonify }}
+    }
+  {% endunless %}
+{% endfor %}
+]

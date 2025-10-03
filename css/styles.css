@@ -171,7 +171,6 @@ header {
 
 /** Navigation Bar **/
 .header-nav {
-    flex: 1;
     align-items: right;
 }
 
@@ -217,6 +216,37 @@ header {
     background-color: #508c9b;
     color: white;
     font-weight: bold;
+}
+
+/** Search Bar **/
+.header-search {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.header-search form {
+    display: flex;
+}
+
+.header-search input[type="text"] {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+}
+
+.header-search button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+
+.header-search button:hover {
+    background-color: #555;
 }
 
 /**********************************************************************************************************/

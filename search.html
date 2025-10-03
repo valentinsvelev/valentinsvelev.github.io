@@ -1,0 +1,133 @@
+---
+layout: default
+title: Search
+permalink: /search.html
+---
+
+<section class="search-page">
+  <h1>Search</h1>
+
+  <!-- The input mirrors your header bar; this also supports direct /search.html?q=... -->
+  <form id="site-search-form" action="{{ '/search.html' | relative_url }}" method="get" role="search">
+    <input id="search-input" type="search" name="q" placeholder="Search..." aria-label="Search" />
+    <button type="submit" aria-label="Run search">Search</button>
+  </form>
+
+  <p id="search-status" aria-live="polite"></p>
+  <ul id="search-results"></ul>
+</section>
+
+<!-- Lunr -->
+<script src="https://unpkg.com/lunr/lunr.js"></script>
+
+<script>
+(function () {
+  const $q = document.getElementById('search-input');
+  const $results = document.getElementById('search-results');
+  const $status = document.getElementById('search-status');
+
+  // read ?q= from URL
+  const params = new URLSearchParams(window.location.search);
+  const initialQuery = params.get('q') || '';
+  if (initialQuery) $q.value = initialQuery;
+
+  // fetch your JSON corpus
+  const indexUrl = "{{ '/search.json' | relative_url }}";
+  let docs = [];
+  let idx = null;
+
+  function renderResults(matches) {
+    $results.innerHTML = '';
+    if (!matches || matches.length === 0) {
+      $status.textContent = 'No results.';
+      return;
+    }
+    $status.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}.`;
+    const frag = document.createDocumentFragment();
+    matches.forEach(m => {
+      const doc = docs.find(d => d.url === m.ref);
+      if (!doc) return;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = doc.url;
+      a.textContent = doc.title || doc.url;
+
+      // simple snippet: first 30 words
+      const snippet = (doc.content || '').split(/\s+/).slice(0, 30).join(' ') + '…';
+      const p = document.createElement('p');
+      p.textContent = snippet;
+
+      li.appendChild(a);
+      li.appendChild(p);
+      frag.appendChild(li);
+    });
+    $results.appendChild(frag);
+  }
+
+  function search(query) {
+    if (!idx || !query) {
+      $status.textContent = query ? 'Index not ready…' : 'Type to search.';
+      $results.innerHTML = '';
+      return;
+    }
+    try {
+      // basic Lunr search; supports multiple terms
+      const matches = idx.search(query);
+      renderResults(matches);
+    } catch (e) {
+      // Fallback if user types unsupported syntax
+      const safe = query.replace(/[^\w\s-]/g, ' ');
+      const matches = idx.search(safe);
+      renderResults(matches);
+    }
+  }
+
+  // Build the index
+  fetch(indexUrl)
+    .then(r => r.json())
+    .then(json => {
+      docs = json;
+
+      idx = lunr(function () {
+        this.ref('url');
+        this.field('title', { boost: 10 });
+        this.field('content');
+
+        docs.forEach(d => this.add(d), this);
+      });
+
+      // run initial search if ?q= provided
+      if (initialQuery) search(initialQuery);
+      else $status.textContent = 'Type to search.';
+    })
+    .catch(err => {
+      console.error('Failed to load search.json', err);
+      $status.textContent = 'Search unavailable.';
+    });
+
+  // live search on input
+  $q.addEventListener('input', (e) => {
+    const v = e.target.value.trim();
+    if (history.replaceState) {
+      const url = new URL(window.location);
+      if (v) url.searchParams.set('q', v); else url.searchParams.delete('q');
+      history.replaceState({}, '', url);
+    }
+    search(v);
+  });
+
+  // prevent full page reload on submit
+  document.getElementById('site-search-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    search($q.value.trim());
+  });
+})();
+</script>
+
+<style>
+.search-page { max-width: 760px; margin: 0 auto; padding: 1rem; }
+#search-results { list-style: none; padding: 0; }
+#search-results li { margin: 0 0 1rem 0; }
+#search-results a { font-weight: 600; text-decoration: none; }
+#search-results p { margin: .25rem 0 0 0; opacity: .8; }
+</style>
