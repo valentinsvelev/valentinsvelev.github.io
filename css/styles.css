@@ -237,8 +237,8 @@ header {
 }
 
 .header-search button {
-    background-color: #333;
-    color: #fff;
+    background-color: white;
+    color: black;
     border: none;
     padding: 6px 10px;
     border-radius: 0 20px 20px 0;
@@ -247,6 +247,7 @@ header {
 
 .header-search button:hover {
     background-color: #555;
+    color: white;
 }
 
 /**********************************************************************************************************/

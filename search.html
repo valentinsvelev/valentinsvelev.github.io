@@ -4,9 +4,11 @@ title: Search
 permalink: /search.html
 ---
 
-<section class="search-page">
-  <h1>Search</h1>
+<div class="title-container">
+    <h2 class="title-text">Search</h2>
+</div>
 
+<section class="search-page">
   <!-- The input mirrors your header bar; this also supports direct /search.html?q=... -->
   <form id="site-search-form" action="{{ '/search.html' | relative_url }}" method="get" role="search">
     <input id="search-input" type="search" name="q" placeholder="Search..." aria-label="Search" />
@@ -125,9 +127,9 @@ permalink: /search.html
 </script>
 
 <style>
-.search-page { max-width: 760px; margin: 0 auto; padding: 1rem; }
-#search-results { list-style: none; padding: 0; }
-#search-results li { margin: 0 0 1rem 0; }
-#search-results a { font-weight: 600; text-decoration: none; }
-#search-results p { margin: .25rem 0 0 0; opacity: .8; }
+  .search-page { max-width: 760px; margin: 0 auto; padding: 1rem; }
+  #search-results { list-style: none; padding: 0; }
+  #search-results li { margin: 0 0 1rem 0; }
+  #search-results a { font-weight: 600; text-decoration: none; }
+  #search-results p { margin: .25rem 0 0 0; opacity: .8; }
 </style>
