@@ -1,9 +1,10 @@
 ---
 layout: post
-title: Evaluating an Agentic AI application - Summarizing my experience integrating DeepEval with Arize Phoenix at Codify
+title: Evaluating an Agentic AI Application - Summarizing my Experience Integrating DeepEval with Arize Phoenix at Codify
 date: 2025-10-03
 description: How can you make sure that your AI agents' output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.
 tags: llm agentic-ai software
+related_posts: false
 ---
 
 **Note**: This article was published on Codify AG's website. Check it out [here](https://www.codify.ch/post/evaluating-ai-agents-with-deepeval-and-arize-phoenix-lessons-from-our-integration-journey).
