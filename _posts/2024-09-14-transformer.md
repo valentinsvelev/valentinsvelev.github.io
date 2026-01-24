@@ -283,7 +283,7 @@ As a final step in the transformer architecture, a softmax activation function i
 
 $$P(y_i = v \mid \tilde{Y}_i) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
 
-where $$P(y_i = v \mid \tilde{Y}_i)$$ is the probability that the model predicts the $$i$$-th token to be word $$v$ from the vocabulary $$V$$, and $$\tilde{Y}_{i,v}$$ is the output score for word $$v$$ from the linear layer at the $$i$$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
+where $$P(y_i = v \mid \tilde{Y}_i)$$ is the probability that the model predicts the $$i$$-th token to be word $$v$$ from the vocabulary $$V$$, and $$\tilde{Y}_{i,v}$$ is the output score for word $$v$$ from the linear layer at the $$i$$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
 
 ---
 
