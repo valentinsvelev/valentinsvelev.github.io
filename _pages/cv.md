@@ -49,11 +49,11 @@ nav: true
 />
 
 <div class="cv-flags">
-  <a href="{{ '/assets/pdf/cv_english.pdf' | relative_url }}">
+  <a href="{{ '/assets/pdf/Valentin_Velev_CV_english.pdf' | relative_url }}">
     <span class="cv-flag fi fi-gb"></span>
   </a>
 
-  <a href="{{ '/assets/pdf/cv_german.pdf' | relative_url }}">
+  <a href="{{ '/assets/pdf/Valentin_Velev_CV_german.pdf' | relative_url }}">
     <span class="cv-flag fi fi-de"></span>
   </a>
 </div>
