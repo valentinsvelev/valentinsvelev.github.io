@@ -98,8 +98,8 @@ $$
 \begin{array}{l}
 \textbf{Algorithm 1: Scaled dot-product self-attention} \\[6pt]
 \textbf{Input: } \\[4pt]
-\bullet\ \text{Set of tokens as a matrix} X \in \mathbb{R}^{N \times D} : \{x_1, ..., x_N\} \\[2pt]
-\bullet\ \text{Weight matrices} \{W^{(q)}, W^{(k)}\} \in \mathbb{R}^{D \times d_k} \text{and} W^{(v)} \in \mathbb{R}^{D \times d_v} \\[4pt]
+\bullet\ \text{Set of tokens as a matrix } X \in \mathbb{R}^{N \times D} : \{x_1, ..., x_N\} \\[2pt]
+\bullet\ \text{Weight matrices } \{W^{(q)}, W^{(k)}\} \in \mathbb{R}^{D \times d_k} \text{and} W^{(v)} \in \mathbb{R}^{D \times d_v} \\[4pt]
 \textbf{Output: } Y \in \mathbb{R}^{N \times d_v} \\[8pt]
 Q = XW^{(q)} \\
 K = XW^{(k)} \\
@@ -152,10 +152,10 @@ $$
 
 \textbf{Input:} \\[4pt]
 \bullet\ \text{Set of tokens as a matrix} X \in \mathbb{R}^{N \times D} : \{x_1, \ldots, x_N\} \\[2pt]
-\bullet\ \text{Query weight matrices} \{W^{(q)}_1, \ldots, W^{(q)}_H\} \in \mathbb{R}^{d_k \times d_k} \\[2pt]
-\bullet\ \text{Key weight matrices} \{W^{(k)}_1, \ldots, W^{(k)}_H\} \in \mathbb{R}^{d_k \times d_k} \\[2pt]
-\bullet\ \text{Value weight matrices} \{W^{(v)}_1, \ldots, W^{(v)}_H\} \in \mathbb{R}^{d_k \times d_v} \\[2pt]
-\bullet\ \text{Output weight matrices} W^{(o)} \in \mathbb{R}^{H d_v \times d_k} \\[8pt]
+\bullet\ \text{Query weight matrices } \{W^{(q)}_1, \ldots, W^{(q)}_H\} \in \mathbb{R}^{d_k \times d_k} \\[2pt]
+\bullet\ \text{Key weight matrices } \{W^{(k)}_1, \ldots, W^{(k)}_H\} \in \mathbb{R}^{d_k \times d_k} \\[2pt]
+\bullet\ \text{Value weight matrices } \{W^{(v)}_1, \ldots, W^{(v)}_H\} \in \mathbb{R}^{d_k \times d_v} \\[2pt]
+\bullet\ \text{Output weight matrices } W^{(o)} \in \mathbb{R}^{H d_v \times d_k} \\[8pt]
 
 \textbf{Output:} \\[4pt]
 Y \in \mathbb{R}^{N \times d_k} : \{y_1, \ldots, y_N\} \\[10pt]
@@ -283,7 +283,7 @@ As a final step in the transformer architecture, a softmax activation function i
 
 $$P(y_i = v \mid \tilde{Y}_i) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
 
-where $P(y_i = v \mid \tilde{Y}_i)$ is the probability that the model predicts the $i$-th token to be word $v$ from the vocabulary $V$, and $\tilde{Y}_{i,v}$ is the output score for word $v$ from the linear layer at the $i$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
+where $$P(y_i = v \mid \tilde{Y}_i)$$ is the probability that the model predicts the $$i$$-th token to be word $$v$ from the vocabulary $$V$$, and $$\tilde{Y}_{i,v}$$ is the output score for word $$v$$ from the linear layer at the $$i$$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
 
 ---
 
