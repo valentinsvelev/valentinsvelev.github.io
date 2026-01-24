@@ -32,7 +32,7 @@ ninja.data = [{
           },
         },{id: "post-my-experience-with-publishing-an-r-package-on-cran",
         
-          title: "My experience with publishing an R package on CRAN",
+          title: "My Experience with Publishing an R Package on CRAN",
         
         description: "How to create an R package? How to publish the R package on The Comprehensive R Archive Network (CRAN)? How to avoid Hadley Wickham as a reviewer? Well, I actually cannot help with the latter, but I can give some insights for the first two questions.",
         section: "Posts",
@@ -43,7 +43,7 @@ ninja.data = [{
         },
       },{id: "post-evaluating-an-agentic-ai-application-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
         
-          title: "Evaluating an Agentic AI application - Summarizing my experience integrating DeepEval with Arize...",
+          title: "Evaluating an Agentic AI Application - Summarizing my Experience Integrating DeepEval with Arize...",
         
         description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.",
         section: "Posts",
@@ -54,7 +54,7 @@ ninja.data = [{
         },
       },{id: "post-a-brief-introduction-to-some-of-the-math-behind-the-transformer",
         
-          title: "A brief introduction to (some of) the math behind the Transformer",
+          title: "A Brief Introduction to (some of) the Math Behind the Transformer",
         
         description: "The Transformer architecture, introduced in 2017 by Google, is the basis for every state-of-the-art generative AI model today. Understanding (some of) the math behind it is essential for understanding the Transformer itself and today&#39;s generative AI models.",
         section: "Posts",
@@ -65,9 +65,9 @@ ninja.data = [{
         },
       },{id: "post-a-brief-introduction-to-natural-language-generation-nlg",
         
-          title: "A brief introduction to natural language generation (NLG)",
+          title: "A Brief Introduction to Natural Language Generation (NLG)",
         
-        description: "Natural Language Generation (NLG), i.e., the generation of text using language models and their causal language modeling capabilities, is not as black box as people make it out to be. In fact, a user can control many parameters. (Note that it is still basically like magic and that me and others are just trying our best)",
+        description: "Natural language generation (NLG), i.e., the generation of text using language models and their causal language modeling capabilities, is not as black box as people make it out to be. In fact, a user can control many parameters. (Note that it is still basically like magic and that me and others are just trying our best)",
         section: "Posts",
         handler: () => {
           
