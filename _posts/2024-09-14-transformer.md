@@ -116,7 +116,7 @@ $$
 ### Multi-head self-attention
 In natural language, some patterns might be relevant to tense whereas others might be associated with vocabulary. Using a single attention head can lead to averaging over these effects and therefore imprecise results. To avoid this, we can use multiple self-attention mechanisms in parallel, each with its own set of learnable parameters that control the computation of the query, key, and value matrices. This is analogous to using multiple different filters in each layer of a convolutional network.
 
-For a multi-head self-attention mechanism with $$H$ heads indexed by $h = 1, ..., H$, the query, key, and value matrices can be calculated using:
+For a multi-head self-attention mechanism with $H$ heads indexed by $h = 1, ..., H$, the query, key, and value matrices can be calculated using:
 
 $$Q_h = XW^{(q)}_h$$
 
@@ -182,7 +182,7 @@ $$
 ---
 
 ### Cross-attention
-Cross-attention refers to a variation of the self-attention mechanism, where the output of the encoder is used in the decoder. Specifically, the query matrix $Q$ comes from the decoder, while the key matrix $K$$ and the value matrix $V$ come from the encoder. Mathematically, this can be expressed as:
+Cross-attention refers to a variation of the self-attention mechanism, where the output of the encoder is used in the decoder. Specifically, the query matrix $Q$ comes from the decoder, while the key matrix $K$ and the value matrix $V$ come from the encoder. Mathematically, this can be expressed as:
 
 
 $$\text{Attention}(Q, K^{'}, V^{'}) = \text{softmax}\left(\frac{QK^{'T}}{\sqrt{d_k}}\right)V^{'}$$
@@ -281,9 +281,9 @@ where $\tilde{X} \in \mathbb{R}^{N \times D}$ is the output from the previous su
 ### Softmax layer
 As a final step in the transformer architecture, a softmax activation function is applied to the output of the linear layer to convert the raw scores into probabilities. The softmax function is defined as:
 
-$$P(y_i = v | \tilde{Y}_i) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
+$$P(y_i = v \mid \tilde{Y}_i) = \frac{\exp(\tilde{Y}_{i,v})}{\sum_{v' \in V}\exp(\tilde{Y}_{i, v'})}$$
 
-where $P(y_i = v | \tilde{Y}_i)$ is the probability that the model predicts the $i$-th token to be word $v$ from the vocabulary $V$, and $\tilde{Y}_{i,v}$ is the output score for word $v$ from the linear layer at the $i$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
+where $P(y_i = v \mid \tilde{Y}_i)$ is the probability that the model predicts the $i$-th token to be word $v$ from the vocabulary $V$, and $\tilde{Y}_{i,v}$ is the output score for word $v$ from the linear layer at the $i$-th position in the sequence. The softmax function exponentiates these scores and normalizes them by dividing by the sum of the exponentiated scores over the entire vocabulary, ensuring that the resulting probabilities sum to 1. This allows the model to output a probability distribution across all possible vocabulary tokens, with higher scores corresponding to higher probabilities of the predicted word being correct.
 
 ---
 
