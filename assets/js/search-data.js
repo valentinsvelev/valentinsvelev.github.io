@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
-        },{id: "post-my-experience-with-publishing-an-r-package-on-cran",
+        },{id: "post-the-world-of-document-retrieval-trying-to-make-sense-of-existing-literature",
+        
+          title: "The World of Document Retrieval: Trying to Make Sense of Existing Literature",
+        
+        description: "...",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ir/";
+          
+        },
+      },{id: "post-my-experience-with-publishing-an-r-package-on-cran",
         
           title: "My Experience with Publishing an R Package on CRAN",
         
@@ -43,7 +54,7 @@ ninja.data = [{
         },
       },{id: "post-evaluating-an-agentic-ai-application-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
         
-          title: "Evaluating an Agentic AI Application - Summarizing my Experience Integrating DeepEval with Arize...",
+          title: "Evaluating an Agentic AI Application: Summarizing my Experience Integrating DeepEval with Arize Phoenix...",
         
         description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.",
         section: "Posts",
