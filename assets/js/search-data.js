@@ -30,20 +30,20 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
-        },{id: "post-the-world-of-document-retrieval-trying-to-make-sense-of-existing-literature",
+        },{id: "post-under-construction-a-comprehensive-introduction-to-information-retrieval",
         
-          title: "The World of Document Retrieval: Trying to Make Sense of Existing Literature",
+          title: "[Under construction] A Comprehensive Introduction to Information Retrieval",
         
-        description: "...",
+        description: "In today&#39;s AI-permeated climate, information retrieval is a crucial component of many applications. But which retrieval models perform well? What affects performance? What is the performance-runtime trade-off? What do different types of retrievers struggle with?",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/blog/2026/ir/";
           
         },
-      },{id: "post-my-experience-with-publishing-an-r-package-on-cran",
+      },{id: "post-under-construction-my-experience-with-publishing-an-r-package-on-cran",
         
-          title: "My Experience with Publishing an R Package on CRAN",
+          title: "[Under construction] My Experience with Publishing an R Package on CRAN",
         
         description: "How to create an R package? How to publish the R package on The Comprehensive R Archive Network (CRAN)? How to avoid Hadley Wickham as a reviewer? Well, I actually cannot help with the latter, but I can give some insights for the first two questions.",
         section: "Posts",
