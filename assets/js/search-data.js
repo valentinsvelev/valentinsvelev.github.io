@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
-        },{id: "post-under-construction-a-comprehensive-introduction-to-information-retrieval",
+        },{id: "post-under-construction-evaluating-an-agentic-ai-application-2-2-summarizing-my-experience-evaluating-conversations-at-codify",
+        
+          title: "[Under construction] Evaluating an Agentic AI Application 2/2: Summarizing my Experience Evaluating Conversations...",
+        
+        description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query and continues to be so throughout the conversation? Here I summarize my experience evaluating conversations from an agentic AI application using DeepEval, Arize Pehonix, and Google Cloud.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/agentic-ai-conv-eval/";
+          
+        },
+      },{id: "post-under-construction-a-comprehensive-introduction-to-information-retrieval",
         
           title: "[Under construction] A Comprehensive Introduction to Information Retrieval",
         
@@ -52,9 +63,9 @@ ninja.data = [{
             window.location.href = "/blog/2026/cran/";
           
         },
-      },{id: "post-evaluating-an-agentic-ai-application-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
+      },{id: "post-evaluating-an-agentic-ai-application-1-2-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
         
-          title: "Evaluating an Agentic AI Application: Summarizing my Experience Integrating DeepEval with Arize Phoenix...",
+          title: "Evaluating an Agentic AI Application 1/2: Summarizing my Experience Integrating DeepEval with Arize...",
         
         description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.",
         section: "Posts",
@@ -90,8 +101,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-published-my-first-paper-in-the-international-journal-for-public-opinion-research-ijpor",
-          title: 'Published my first paper in the International Journal for Public Opinion Research (IJPOR)....',
+            },},{id: "news-published-my-very-first-paper-on-economic-inequality-in-oup-s-international-journal-for-public-opinion-research",
+          title: 'Published my very first paper (on economic inequality) in OUP’s International Journal for...',
           description: "",
           section: "News",},{id: "news-submitted-my-first-two-cs-papers-to-eurovis-2026-and-sigir-2026",
           title: 'Submitted my first two CS papers to EuroVis 2026 and SIGIR 2026',
