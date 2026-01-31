@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2024-11-23
+date: 2025-09-24
 inline: true
 related_posts: false
 ---
 
-Published my very first paper (on economic inequality) in OUP's [International Journal for Public Opinion Research](https://academic.oup.com/ijpor)
+Published my first software package in CRAN, `gglyph`, a tool for visualizing directed pairwise relationships. Check it out [here](https://CRAN.R-project.org/package=gglyph)!
