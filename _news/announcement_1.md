@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2026-01-23
+date: 2026-05-23
 inline: true
 related_posts: false
 ---
 
-Submitted my first two CS papers to [EuroVis 2026](https://eurovis.org.uk/) and [SIGIR 2026](https://sigir2026.org/en-AU).
+Together with my supervisor, I submitted a version of my master's thesis on the evaluation of document retrieval models to [CIKM 2026](https://cikm2026.diag.uniroma1.it/).

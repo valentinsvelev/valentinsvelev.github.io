@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: MSc Data Science @ <a href='https://www.uni-konstanz.de/en/'>University of Konstanz</a><br>Data Science Working Student @ <a href='https://www.codify.ch/'>Codify</a>
+subtitle: Data Scientist @ <a href='https://www.codify.ch/'>Codify</a>
 
 profile:
   align: right
@@ -35,7 +35,7 @@ Link to your social media connections, too. This theme is set up to use [Font Aw
 
 Hello and welcome to my personal website!
 
-My name is Valentin Velev and I am a data science student at the [University of Konstanz](https://www.uni-konstanz.de/en/). I have experience in AI (e.g., deep learning, NLP), machine learning (e.g., regression for prediction and classification, PCA, topic modeling, clustering), data analysis (e.g., EDA, causality, econometrics), and academic research. I currently work as a data science working student at [Codify](https://www.codify.ch/) working on agentic AI evaluation and as a teaching assistant at the [Department of Computer and Information Science](https://www.informatik.uni-konstanz.de/en/) at the University of Konstanz as a tutor for the master's level course "Word Representations and Language Models" (taught by Andreas Spitz). My research interest lies in utilizing deep learning models, primarily AI models, to solve complex problems across various academic and industry domains. I am currently writing my master's thesis with Andreas Spitz and Daniel Keim on information retrieval (IR), where I conduct a large-scale evaluation of document retrievers and investigate retrieval quality, runtime, prompt sensitivity, and failure points.
+My name is Valentin Velev (<span lang="bg">Валентин Велев</span>) and I am recent MSc Data Science ([University of Konstanz](https://www.uni-konstanz.de/en/)) graduate. I have experience in AI (e.g., deep learning, NLP, RAG, agentic AI), machine learning (e.g., regression for prediction and classification, PCA, topic modeling, clustering), data analysis (e.g., EDA, causality, econometrics), and academic research. I currently work as a data scientist at [Codify](https://www.codify.ch/) working on RAG and agentic AI evaluation. My research interest lies in utilizing complex mathematical models, such as LLMs, to solve complex problems across various academic and industry domains, focusing on education, health care, and climate change. Alongside my job, I am taking a course on full stack software development.
 
 PS: If you are wondering why my website is valentin**s**velev.github.io, it is because my middle name starts with an S... and mainly because the username valentinvelev was already taken on GitHub :/
 

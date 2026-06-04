@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2025-09-24
+date: 2026-04-27
 inline: true
 related_posts: false
 ---
 
-Published my first software package in CRAN, `gglyph`, a tool for visualizing directed pairwise relationships. Check it out [here](https://CRAN.R-project.org/package=gglyph)!
+I got my first CS paper accepted to [EuroVis 2026](https://eurovis.org.uk/)! That is a very nice birthday present indeed :) Check it out [here](https://doi.org/10.2312/evpd.20261030).

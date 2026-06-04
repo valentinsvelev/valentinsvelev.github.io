@@ -17,7 +17,7 @@ nav: true
   display: inline-block;
 
   /* Force a proper flag shape */
-  width: 120px !important;
+  width: 140px !important;
   aspect-ratio: 4 / 3;
   height: auto !important;
 
@@ -53,7 +53,7 @@ nav: true
     <span class="cv-flag fi fi-gb"></span>
   </a>
 
-  <a href="{{ '/assets/pdf/Valentin_Velev_CV_german.pdf' | relative_url }}">
+  <a href="{{ '/assets/pdf/Valentin_Velev_CV_deutsch.pdf' | relative_url }}">
     <span class="cv-flag fi fi-de"></span>
   </a>
 </div>
