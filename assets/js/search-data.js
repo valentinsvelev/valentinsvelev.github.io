@@ -101,7 +101,7 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-i-published-my-very-first-paper-on-economic-inequality-in-oup-s-international-journal-for-public-opinion-research",
+            },},{id: "news-i-published-my-very-first-paper-on-economic-inequality-in-oup-s-international-journal-for-public-opinion-research-check-it-out-here",
           title: 'I published my very first paper (on economic inequality) in OUP’s International Journal...',
           description: "",
           section: "News",},{id: "news-i-published-my-first-software-package-in-cran-gglyph-a-tool-for-visualizing-directed-pairwise-relationships-check-it-out-here",
