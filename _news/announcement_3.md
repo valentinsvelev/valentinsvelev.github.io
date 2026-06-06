@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I published my first software package in CRAN, `gglyph`, a tool for visualizing directed pairwise relationships. Check it out [here](https://CRAN.R-project.org/package=gglyph)!
+I published my first software package in CRAN, `gglyph`, a tool for visualizing directed pairwise relationships! Check it out [here](https://CRAN.R-project.org/package=gglyph)!
