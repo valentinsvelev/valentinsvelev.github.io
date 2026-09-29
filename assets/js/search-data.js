@@ -30,42 +30,20 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
-        },{id: "post-under-construction-evaluating-an-agentic-ai-application-2-2-summarizing-my-experience-evaluating-conversations-at-codify",
+        },{id: "post-evaluating-an-agentic-ai-application-2-3-what-research-and-our-experience-taught-us-about-llm-as-a-judge",
         
-          title: "[Under construction] Evaluating an Agentic AI Application 2/2: Summarizing my Experience Evaluating Conversations...",
+          title: "Evaluating an Agentic AI Application 2/3: What Research and Our Experience Taught Us...",
         
-        description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query and continues to be so throughout the conversation? Here I summarize my experience evaluating conversations from an agentic AI application using DeepEval, Arize Phoenix, and Google Cloud.",
+        description: "An LLM judge is a measurement instrument, not an oracle. Research shows that judges carry systematic bias, that the judge prompt is part of the instrument, and that confident verdicts can flip under pressure. Here is what we changed in our own evaluation approach as a result.",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2026/agentic-ai-conv-eval/";
+            window.location.href = "/blog/2026/llm-as-a-judge/";
           
         },
-      },{id: "post-under-construction-a-comprehensive-introduction-to-information-retrieval",
+      },{id: "post-evaluating-an-agentic-ai-application-1-3-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
         
-          title: "[Under construction] A Comprehensive Introduction to Information Retrieval",
-        
-        description: "In today&#39;s AI-permeated climate, information retrieval is a crucial component of many applications. But which retrieval models perform well? What affects performance? What is the performance-runtime trade-off? What do different types of retrievers struggle with?",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/ir/";
-          
-        },
-      },{id: "post-under-construction-my-experience-with-publishing-an-r-package-on-cran",
-        
-          title: "[Under construction] My Experience with Publishing an R Package on CRAN",
-        
-        description: "How to create an R package? How to publish the R package on The Comprehensive R Archive Network (CRAN)? How to avoid Hadley Wickham as a reviewer? Well, I actually cannot help with the latter, but I can give some insights for the first two questions.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/cran/";
-          
-        },
-      },{id: "post-evaluating-an-agentic-ai-application-1-2-summarizing-my-experience-integrating-deepeval-with-arize-phoenix-at-codify",
-        
-          title: "Evaluating an Agentic AI Application 1/2: Summarizing my Experience Integrating DeepEval with Arize...",
+          title: "Evaluating an Agentic AI Application 1/3: Summarizing my Experience Integrating DeepEval with Arize...",
         
         description: "How can you make sure that your AI agents&#39; output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.",
         section: "Posts",
@@ -110,8 +88,8 @@ ninja.data = [{
           section: "News",},{id: "news-i-got-my-first-cs-paper-accepted-to-eurovis-2026-that-is-a-very-nice-birthday-present-indeed-check-it-out-here",
           title: 'I got my first CS paper accepted to EuroVis 2026! That is a...',
           description: "",
-          section: "News",},{id: "news-together-with-my-supervisor-i-submitted-a-version-of-my-master-s-thesis-on-the-evaluation-of-document-retrieval-models-to-cikm-2026",
-          title: 'Together with my supervisor, I submitted a version of my master’s thesis on...',
+          section: "News",},{id: "news-together-with-my-supervisor-andreas-spitz-i-published-version-of-my-master-s-thesis-on-the-evaluation-of-document-retrieval-models-on-arxiv-check-it-out-here-we-also-submitted-it-to-wsdm-2027",
+          title: 'Together with my supervisor, Andreas Spitz, I published version of my master’s thesis...',
           description: "",
           section: "News",},{id: "projects-project-1",
           title: 'project 1',
