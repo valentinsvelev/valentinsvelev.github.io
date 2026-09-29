@@ -1,13 +1,18 @@
 ---
 layout: post
-title: "Evaluating an Agentic AI Application 1/2: Summarizing my Experience Integrating DeepEval with Arize Phoenix at Codify"
+title: "Evaluating an Agentic AI Application 1/3: Summarizing my Experience Integrating DeepEval with Arize Phoenix at Codify"
 date: 2025-10-03
 description: How can you make sure that your AI agents' output is truthful and faithful to your query? This is what inspired our journey integrating the evaluation platform DeepEval with the LLM trace platform Arize Phoenix. In this blog post, I will present the challenges I faced in this journey and how I solved them.
 tags: llm agentic-ai software
 related_posts: false
 ---
 
-**Note**: This article was published on Codify AG's website. Check it out [here](https://www.codify.ch/post/evaluating-ai-agents-with-deepeval-and-arize-phoenix-lessons-from-our-integration-journey).
+> **Evaluating an Agentic AI Application Series:**
+> * **Part 1:** Summarizing my Experience Integrating DeepEval with Arize Phoenix at Codify *(This post)*
+> * **Part 2:** [What Research and Our Experience Taught Us About LLM-as-a-Judge](/blog/2026/llm-as-a-judge/)
+> * **Part 3:** [Coming Soon: Summarizing my Experience Evaluating Conversations at Codify](/post/2026-XX-XX-agentic-ai-conv-eval)
+
+**Note**: This article was published on Codify's website. Check it out [here](https://www.codify.ch/post/evaluating-ai-agents-with-deepeval-and-arize-phoenix-lessons-from-our-integration-journey).
 
 ### What this Blog Post is About
 Today, AI agents are everywhere. One of the biggest challenges in the new era of MLOps isn't just building an innovative agentic AI tool; it's proving that it actually works, consistently and reliably. How do you measure “helpfulness”? How do you track down the root cause of (subtle) hallucinations? Standard ML metrics like precision, recall, and accuracy or NLP metrics like BLEU, MAUVE, and BERTScore simply don't cut it. And what about tracking an agent's actions and thoughts? How can those be evaluated? At present, these questions constitute some of the most critical considerations in the evaluation of LLM and agent outputs. After experimenting with different frameworks, we decided on [DeepEval](https://deepeval.com/docs/getting-started) for our evaluation pipeline and [Arize Phoenix](https://phoenix.arize.com/) for collecting and analyzing the traces of our agents.
