@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Independent Researcher</a>
+subtitle: AI Researcher</a>
 
 profile:
   align: right
@@ -35,8 +35,8 @@ Link to your social media connections, too. This theme is set up to use [Font Aw
 
 Hello and welcome to my personal website!
 
-My name is Valentin Velev (<span lang="bg">Валентин Велев</span>) and I am recent MSc Data Science ([University of Konstanz](https://www.uni-konstanz.de/en/)) graduate. I have experience in AI (e.g., deep learning, NLP, RAG, agentic AI), machine learning (e.g., regression for prediction and classification, PCA, topic modeling, clustering), data analytics (e.g., EDA, causal analysis, econometrics), and academic research. I previously worked as a data scientist at [Codify](https://www.codify.ch/) working on RAG and agentic AI evaluation. My research interest lies in utilizing mathematical models, such as LLMs, to solve complex problems across various academic and industry domains, focusing on education, health care, and climate change.
+My name is Valentin Velev (<span lang="bg">Валентин Велев</span>) and I am recent MSc Data Science ([University of Konstanz](https://www.uni-konstanz.de/en/)) graduate. I have experience in AI (e.g., deep learning, NLP, RAG, agentic AI), machine learning (e.g., regression for prediction and classification, PCA, topic modeling, clustering), data analytics (e.g., EDA, causal analysis, econometrics), and academic research. I previously worked as a data scientist at [Codify](https://www.codify.ch/) developing and evaluating RAG and agentic AI systems. My research interest lies in utilizing mathematical models, such as LLMs, to solve complex problems across various academic and industry domains, focusing on "NLP for Social Good" domains, such as education, health care, and climate change.
 
-<span>Note:</span> I am currently looking for an industry job (Data Scientist, AI/ML Engineer, Research Engineer) or a PhD (NLP, CSS). If my profile looks interesting, please do not hesitate to reach out at [valentin.velev@gmx.de](mailto:valentin.velev@gmx.de)
+**Note:** I am currently looking for an industry job (AI/ML Engineer, Research Engineer, Data Scientist, Data Engineer) or a PhD (NLP, CSS, AI, ML). If my profile looks interesting, please do not hesitate to reach out at [valentin.velev@gmx.de](mailto:valentin.velev@gmx.de)
 
 PS: If you are wondering where I am in my picture, it was taken in a quaint little French city called Colmar.

@@ -2,10 +2,10 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A growing collection of your cool projects.
+description: Here is a collection of projects I am currently working on. If you are interested in any of them, feel free to reach out!
 nav: true
 nav_order: 3
-display_categories: #[work, fun]
+display_categories: [AI, NLP]
 horizontal: false
 ---
 
