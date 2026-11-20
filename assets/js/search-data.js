@@ -30,6 +30,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Here is a collection of projects I am currently working on. If you are interested in any of them, feel free to reach out!",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
         },{id: "post-evaluating-an-agentic-ai-application-2-3-what-research-and-our-experience-taught-us-about-llm-as-a-judge",
         
           title: "Evaluating an Agentic AI Application 2/3: What Research and Our Experience Taught Us...",
@@ -79,8 +86,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-i-published-my-very-first-paper-on-economic-inequality-in-oup-s-international-journal-for-public-opinion-research-check-it-out-here",
-          title: 'I published my very first paper (on economic inequality) in OUP’s International Journal...',
+            },},{id: "news-i-published-my-very-first-paper-in-the-international-journal-for-public-opinion-research-check-it-out-here",
+          title: 'I published my very first paper in the International Journal for Public Opinion...',
           description: "",
           section: "News",},{id: "news-i-published-my-first-software-package-in-cran-gglyph-a-tool-for-visualizing-directed-pairwise-relationships-check-it-out-here",
           title: 'I published my first software package in CRAN, gglyph, a tool for visualizing...',
@@ -88,54 +95,24 @@ ninja.data = [{
           section: "News",},{id: "news-i-got-my-first-cs-paper-accepted-to-eurovis-2026-that-is-a-very-nice-birthday-present-indeed-check-it-out-here",
           title: 'I got my first CS paper accepted to EuroVis 2026! That is a...',
           description: "",
-          section: "News",},{id: "news-together-with-my-supervisor-andreas-spitz-i-published-version-of-my-master-s-thesis-on-the-evaluation-of-document-retrieval-models-on-arxiv-check-it-out-here-we-also-submitted-it-to-wsdm-2027",
-          title: 'Together with my supervisor, Andreas Spitz, I published version of my master’s thesis...',
+          section: "News",},{id: "news-together-with-my-supervisor-andreas-spitz-i-published-a-version-of-my-master-s-thesis-on-the-evaluation-of-document-retrieval-models-on-arxiv-check-it-out-here",
+          title: 'Together with my supervisor, Andreas Spitz, I published a version of my master’s...',
           description: "",
-          section: "News",},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+          section: "News",},{id: "projects-aira-amp-8212-a-local-retrieval-augmented-ai-research-assistant",
+          title: 'AIRA &amp;amp;#8212; A local retrieval-augmented AI Research Assistant',
+          description: "A web application for an SLM-based research assistant for academic research. Implementing current SOTA in industry and academia.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
-            },},{id: "projects-project-2",
-          title: 'project 2',
-          description: "a project with a background image and giscus comments",
+            },},{id: "projects-llm-internals-lab",
+          title: 'LLM Internals Lab',
+          description: "A web app for interactively teaching core aspects of NLP and language modeling.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
-            },},{id: "projects-project-3-with-very-long-name",
-          title: 'project 3 with very long name',
-          description: "a project that redirects to another website",
+            },},{id: "projects-promptfolio-amp-8212-a-collaborative-prompt-portfolio",
+          title: 'PromptFolio &amp;amp;#8212; A collaborative Prompt portFolio',
+          description: "A web application for a managing a collaborative portfolio of prompts.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
-            },},{id: "projects-project-4",
-          title: 'project 4',
-          description: "another without an image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/4_project/";
-            },},{id: "projects-project-5",
-          title: 'project 5',
-          description: "a project with a background image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/5_project/";
-            },},{id: "projects-project-6",
-          title: 'project 6',
-          description: "a project with no image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/6_project/";
-            },},{id: "projects-project-7",
-          title: 'project 7',
-          description: "with background image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/7_project/";
-            },},{id: "projects-project-8",
-          title: 'project 8',
-          description: "an other project with a background image and giscus comments",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/8_project/";
-            },},{id: "projects-project-9",
-          title: 'project 9',
-          description: "another project with an image 🎉",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/9_project/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
